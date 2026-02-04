@@ -1,0 +1,118 @@
+<html>
+	<head>
+	<link rel="stylesheet" type="text/css" href="main.css" >
+    <style>
+    body {
+        font-family: "OCR A Extended", sans-serif;
+        background : black;
+        color : lightgreen;
+    }
+
+    .main-content {
+        padding: 20px;
+        width: 500px;
+        border: 1px solid lightgreen;
+    }
+
+    .main-content h1 {
+        margin-top: 0px;
+        padding-top: 0px;
+    }
+
+    #count-btn, .action-btn {
+        cursor: pointer;
+        border: 1px solid lightgreen;
+        padding: 2px;
+        width: 20px;
+        margin-top: 5px;
+        font-size: 11px;
+        text-align: center;
+    }
+
+    #counter {
+        font-size: 20px;
+    }
+    </style>
+	
+	<title>USB Shortcut Scanner</title>
+	</head>
+	<body>
+		<div id="main-content" class="main-content">
+			<h1>Insert your flash disk</h1>			
+			<h3>Enter the drive letter</h3>
+            <h4>Use it ONLY with USB storage devices!!!</h2>
+			<form id="search-form">
+				<input type="text" id="drive-letter"/>
+				<span id="count-btn" title="start" onclick="count()">=></span>
+			</form>
+			<div>
+				<div id="counter">good luck!!!</div>
+			</div>
+		</div>
+	</body>
+    <script language="javascript" type="text/javascript">
+        var countBtn = document.getElementById("count-btn");
+
+        var letterInput = document.getElementById("drive-letter");
+
+        var counterDiv = document.getElementById("counter");
+        var loadingBar = document.getElementById("loading-bar");
+
+        var mainCont = document.getElementById("main-content");
+        var bodyCont = document.getElementsByTagName("body")[0];
+
+        var loop = null;
+
+        setTimeout(function() {
+            centralize();
+        }, 30)
+
+        window.onresize = function() {
+            centralize();
+        }
+
+        function centralize() {
+            var bodyWidth = bodyCont.offsetWidth / 2;
+            var mainWidth = mainCont.offsetWidth / 2;
+            var bodyHeight = bodyCont.offsetHeight / 2;
+            var mainHeight = mainCont.offsetHeight / 2;
+            var marginLeft = bodyWidth - mainWidth;
+            var marginTop = bodyHeight - mainHeight - 30;
+            mainCont.style.marginLeft = marginLeft + "px";
+            mainCont.style.marginTop = marginTop + "px";
+        }
+
+        function count() {
+            var driveLetter = letterInput.value;
+            var command = "attrib -h -r -s /s /d " + driveLetter + ":\\*.*";
+            counterDiv.innerHTML = "Loading ...";
+            var output = runCommand(command);
+            if (output.length > 0) {
+                counterDiv.innerHTML = output;
+                alert(output);
+            } else {
+                counterDiv.innerHTML = "Done ...";
+                alert("done!!");
+            }
+        }
+        
+        function runCommand(command) {
+            var fso = new ActiveXObject("Scripting.FileSystemObject");
+            var wshShell = new ActiveXObject("WScript.Shell");
+            do {
+                var tempName = fso.BuildPath(fso.GetSpecialFolder(2), fso.GetTempName());
+            } while ( fso.FileExists(tempName) );
+            var cmdLine = fso.BuildPath(fso.GetSpecialFolder(1), "cmd.exe") + ' /C ' + command + ' > "' + tempName + '"';
+            wshShell.Run(cmdLine, 0, true);
+            var result = "";
+            try {
+                var ts = fso.OpenTextFile(tempName, 1, false);
+                result = ts.ReadAll();
+                ts.Close();
+            } catch(err) {
+                alert(err);
+            }
+            return result;
+        }
+    </script>
+</html>

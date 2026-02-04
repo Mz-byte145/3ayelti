@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Aide - Gestion des Tâches Familiales</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #3b4371, #f3904f);
+      font-family: 'Poppins', sans-serif;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    header {
+      width: 100%;
+      padding: 20px 0;
+      background: inherit;
+      text-align: center;
+      position: relative;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.2em;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .retour {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      font-size: 1.2em;
+      background-color: rgba(255, 255, 255, 0.25);
+      padding: 8px 12px;
+      border-radius: 6px;
+      color: white;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .retour:hover {
+      background-color: rgba(255, 255, 255, 0.4);
+    }
+
+ 
+    main {
+      width: 90%;
+      max-width: 900px;
+      border-radius: 12px;
+      padding: 30px;
+      margin: 30px 0;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+      animation: fadeIn 1s ease forwards;
+    }
+    /* Partie Introduction */
+    #introduction {
+      background-color: rgba(255, 255, 255, 0.2); /* Fond légèrement transparent */
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1); /* Ombre pour plus de profondeur */
+      margin-bottom: 30px;
+      transition: background-color 0.3s ease-in-out;
+    }
+
+    #introduction:hover {
+      background-color: rgba(255, 255, 255, 0.3); /* Effet au survol */
+    }
+
+    #introduction h2 {
+      color: #3b4371;
+      font-size: 2em;
+      text-align: center;
+      margin-bottom: 25px;
+      border-bottom: 2px solid #3b4371;
+      padding-bottom: 8px;
+      font-weight: bold;
+    }
+
+    #introduction p {
+      font-size: 1.1em;
+      color: #f0f0f0;
+      line-height: 1.8;
+      margin-bottom: 15px;
+      text-align: justify;
+    }
+
+    #introduction strong {
+      color: #ffe37a;
+      font-style: italic;
+    }
+
+    /* Partie Support */
+    #support {
+      background-color: rgba(255, 255, 255, 0.2); /* Fond légèrement transparent */
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1); /* Ombre pour plus de profondeur */
+      margin-bottom: 30px;
+      transition: background-color 0.3s ease-in-out;
+    }
+
+    #support:hover {
+      background-color: rgba(255, 255, 255, 0.3); /* Effet au survol */
+    }
+
+    #support h2 {
+      color: #3b4371;
+      font-size: 2em;
+      text-align: center;
+      margin-bottom: 20px;
+      border-bottom: 2px solid#3b4371;
+      padding-bottom: 8px;
+      font-weight: bold;
+    }
+
+    #support h3 {
+      color: #fff;
+      font-size: 1.5em;
+      margin-bottom: 15px;
+    }
+
+    #support p {
+      font-size: 1.1em;
+      color: #f0f0f0;
+      line-height: 1.8;
+      margin-bottom: 15px;
+      text-align: justify;
+    }
+
+    #support a {
+      color:#ffe37a;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+
+    #support a:hover {
+      color: #fbd28b;
+      text-decoration: underline;
+    }
+
+    #support .contact-box {
+      background-color: rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      padding: 20px;
+      margin-top: 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    
+
+    #commentaires {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 230px;
+      background-color: rgba(255, 255, 255, 0.85);
+      padding: 15px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      z-index: 999;
+    }
+
+    #commentaires h2 {
+      font-size: 1.2em;
+      color: #3b4371;
+      margin-bottom: 12px;
+    }
+
+    .input-field {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1em;
+      resize: none;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 10px;
+      background-color: #3b4371;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .submit-btn:hover {
+      background-color: #f3904f;
+    }
+
+    footer {
+      width: 100%;
+      padding: 15px;
+      background: inherit;
+      text-align: center;
+      color: white;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Aide 🛠</h1>
+    <a href="acceuil.html" class="retour">⬅</a>
+  </header>
+
+  <main>
+    <section id="introduction">
+      <h2>1. Introduction</h2>
+      <p><strong>Objectif de la page d'aide :</strong> Cette page explique comment utiliser la plateforme et répond aux questions les plus posées.</p>
+      <p><strong>Qui peut utiliser cette plateforme :</strong> L'objectif de ce projet est de faciliter l'organisation familiale, en permettant à chaque membre de participer activement selon ses capacités.</p>
+    </section>
+
+    <section id="support">
+      <h2>2. Support</h2>
+      <h3>Contact Support</h3>
+      <p>Si vous rencontrez des problèmes techniques ou si vous avez des questions supplémentaires, n'hésitez pas à nous contacter  ou à laisser un commentaire:</p>
+      <p>Email : <a href="mailto:aminemzoughi211@gmail.com">aminemzoughi211@gmail.com</a></p>
+      <p><a href="https://www.facebook.com/profile.php?id=100042205510657&locale=fr_FR" target="_blank">Contactez le fondateur</a></p>
+      <p>Facebook créateur : <a href="https://www.facebook.com/profile.php?id=100042205510657&locale=fr_FR" target="_blank">Mzoughi Amine</a></p>
+    </section>
+  </main>
+
+  <section id="commentaires">
+    <h2>Laissez un commentaire</h2>
+    <form action="commentaire.php" method="POST">
+      <input type="text" name="nom" class="input-field" placeholder="Votre nom" required>
+      <textarea name="commentaire" rows="3" class="input-field" placeholder="Votre commentaire ici..." required></textarea>
+      <button type="submit" class="submit-btn">Envoyer</button>
+    </form>
+  </section>
+
+  <footer>
+    <p>&copy; 3ayelti plateforme</p>
+  </footer>
+</body>
+</html>

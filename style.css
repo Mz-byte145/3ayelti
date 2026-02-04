@@ -1,0 +1,89 @@
+.container {
+    position: relative;
+}
+
+.title {
+    position: fixed;
+    top: -5px;
+    right: 120px;
+    font-size: 40px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    text-shadow: 6px 6px 15px rgba(0, 0, 0, 0.7), 0 0 10px rgba(255, 255, 255, 0.5);
+    background: linear-gradient(45deg, #ffcc00, #ff6699);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: bold;
+
+}
+/* Style pour le bouton Aide */
+.help-button {
+    background: rgba(232, 231, 231, 0.2);
+    border-radius: 10px;
+    padding: 15px 30px;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: -300px;
+    transition: background-color 0.3s ease;
+    position: fixed;
+    right: 1400px;
+}
+
+.help-button:hover {
+    background-color: #f3904f;
+}
+
+
+.play-button {
+    position: fixed;
+    top: 100px;
+    right: 150px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    padding: 30px 40px;
+    cursor: pointer;
+}
+
+.play-button::before {
+    content: '▶';
+    font-size: 50px;
+    color: white;
+}
+
+.detective {
+    position: absolute;
+    left: -40px;
+    top: -10px;
+    width: 40px;
+    height: 40px;
+    background: url('detective-icon.png') no-repeat center/contain;
+}
+.play-button a {
+    text-decoration: none;
+    color: white;
+    font-size: 50px;
+}
+
+.gifts {
+    position: absolute;
+    bottom: -30px;
+    right: -50px;
+    width: 80px;
+    height: 80px;
+    background: url('famille2.jpg') no-repeat center/contain;
+}
+body {
+    margin: 0;
+    padding: 0;
+    background: url('famille.jpg') no-repeat center/cover;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    color: white;
+    font-family: 'Bangers', cursive;
+    text-align: center;
+}

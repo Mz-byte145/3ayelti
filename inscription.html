@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Créer un Compte</title>
+    <script src="script.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #3b4371, #f3904f);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Bangers', cursive;
+            color: white;
+            text-align: center;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px 25px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            width: 320px;
+        }
+
+        h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #ffcc00;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        label {
+            font-size: 20px;
+            margin: 10px 0 5px;
+            display: block;
+            text-align: left;
+        }
+
+        input {
+            padding: 10px;
+            margin: 5px 0 15px;
+            width: 100%;
+            border: none;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 12px 20px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 5px;
+            background: #ffcc00;
+            color: #333;
+            cursor: pointer;
+            font-size: 18px;
+            transition: 0.3s;
+            width: 100%;
+        }
+
+        button:hover {
+            background: #e6b800;
+        }
+
+        a {
+            color: #ffcc00;
+            text-decoration: none;
+            margin-top: 15px;
+            display: inline-block;
+            font-size: 16px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+        .error {
+        color: red;
+        font-size: 14px;
+        margin-left: 10px;
+    }
+    .retour {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            font-size: 1.5em;
+            color: white;
+            text-decoration: none;
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+}
+
+.retour:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+    </style>
+</head>
+<body>
+    <a href="acceuil.html" class="retour">⬅ </a>
+    <div class="container">
+        <h2>Créer un Compte</h2>
+        <form  action="registre.php" method="post" onsubmit="return valid()">
+            <label for="nom">Nom :</label>
+            <input type="text" id="nom" name="nom">
+            <span id="nomError" class="error"></span>
+            <br>
+        
+            <label for="email">Email :</label>
+            <input type="text" id="email" name="email">
+            <span id="emailError" class="error"></span>
+            <br>
+        
+            <label for="password">Mot de passe :</label>
+            <input type="password" id="password" name="password">
+            <span id="passwordError" class="error"></span>
+            <br>
+        
+            <label for="confirmpss">Confirmer le mot de passe :</label>
+            <input type="password" id="confirmpss" name="confirmpss">
+            <span id="confirmError" class="error"></span>
+            <br>
+            <a href="reception.html">
+            <button type="submit">S'inscrire</button></a>
+        </form>
+        <a href="formulaire.html">Déjà un compte ? Se connecter</a>
+    </div>
+</body>
+</html>
