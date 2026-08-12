@@ -2,21 +2,24 @@
 include 'connexion.php';
 
 // Traitement du formulaire
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $nom = mysqli_real_escape_string($conn, $_POST['nom']);
-    $commentaire = mysqli_real_escape_string($conn, $_POST['commentaire']);
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $nom = trim($_POST['nom'] ?? '');
+    $commentaire = trim($_POST['commentaire'] ?? '');
 
     if (!empty($nom) && !empty($commentaire)) {
-        $sql = "INSERT INTO commentaires (nom, commentaire) VALUES ('$nom', '$commentaire')";
-        if (mysqli_query($conn, $sql)) {
-            // Message de succès
-            $message = "Votre commentaire a été ajouté avec succès !";
+        $stmt = mysqli_prepare($conn, "INSERT INTO commentaires (nom, commentaire) VALUES (?, ?)");
+        if ($stmt) {
+            mysqli_stmt_bind_param($stmt, "ss", $nom, $commentaire);
+            if (mysqli_stmt_execute($stmt)) {
+                $message = "Votre commentaire a été ajouté avec succès !";
+            } else {
+                $message = "Erreur lors de l'ajout du commentaire. Veuillez réessayer.";
+            }
+            mysqli_stmt_close($stmt);
         } else {
-            // Message d'erreur
-            $message = "Erreur lors de l'ajout du commentaire. Veuillez réessayer.";
+            $message = "Erreur lors de la préparation de la requête.";
         }
     } else {
-        // Message si des champs sont vides
         $message = "Veuillez remplir tous les champs.";
     }
 }
