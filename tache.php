@@ -364,7 +364,7 @@ if (isset($_GET['message']) && $_GET['message'] === 'facture_paye') {
     </style>
 </head>
 <body>
-    <a href="formulaire.html" class="retour">Retour</a>
+    <a href="deconnexion.php" class="retour">Déconnexion 🚪</a>
 
     <h2>Ton effort, ta récompense !</h2>
 
