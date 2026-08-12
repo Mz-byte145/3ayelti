@@ -82,194 +82,168 @@ foreach ($enfants as $key => $enfant) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Performance des Enfants</title>
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Bangers&display=swap" rel="stylesheet">
-    <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Chart.js -->
+    <title>Performance des Enfants - 3ayelti</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        /* Global Styles */
-        body {
+        :root {
+            --gradient-bg: linear-gradient(135deg, #1f2440 0%, #3b4371 50%, #f3904f 100%);
+            --gold: #ffcc00;
+            --glass-bg: rgba(255, 255, 255, 0.12);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --glass-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            background: linear-gradient(135deg, #2c3e50, #fd746c);
+        }
+
+        body {
+            background: var(--gradient-bg);
             font-family: 'Poppins', sans-serif;
             color: white;
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            overflow-x: hidden;
+            padding: 40px 20px;
         }
 
         .container {
-            max-width: 1400px;
-            margin: 40px auto;
-            padding: 20px;
+            max-width: 1300px;
+            margin: 0 auto;
         }
 
-        h2 {
-            font-family: 'Bangers', cursive;
-            font-size: 48px;
-            color: #ffeb3b;
-            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 30px;
-            animation: fadeIn 1s ease-in;
         }
 
-        /* Summary Card */
+        .retour {
+            text-decoration: none;
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .retour:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        h2.page-title {
+            font-family: 'Bangers', cursive;
+            font-size: 44px;
+            color: var(--gold);
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
         .summary-card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-            margin-bottom: 40px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            padding: 22px 30px;
+            border-radius: 20px;
+            box-shadow: var(--glass-shadow);
+            margin-bottom: 35px;
             display: flex;
             justify-content: space-around;
             align-items: center;
             text-align: center;
-            animation: slideIn 0.8s ease-out;
+            flex-wrap: wrap;
+            gap: 20px;
         }
 
         .summary-card p {
             margin: 0;
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 600;
         }
 
         .summary-card .highlight {
-            color: #ffeb3b;
+            color: var(--gold);
             font-size: 24px;
+            font-weight: 700;
         }
 
-        /* Child Container */
         .enfant-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
-            padding: 0 10px;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 25px;
         }
 
         .enfant-box {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(15px);
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
             padding: 25px;
             border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: var(--glass-shadow);
             text-align: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            position: relative;
+            transition: transform 0.3s ease;
         }
 
         .enfant-box:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+            transform: translateY(-5px);
         }
 
         .enfant-box h3 {
             font-family: 'Bangers', cursive;
             font-size: 32px;
             color: #a8e6cf;
-            margin: 10px 0;
+            margin-bottom: 8px;
         }
 
         .motivational-title {
-            font-size: 18px;
-            color: #ffeb3b;
-            background: rgba(0, 0, 0, 0.3);
-            padding: 8px 15px;
-            border-radius: 10px;
-            margin: 10px 0;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
-
-        /* Stats Section */
-        .stats {
-            margin: 20px 0;
-            position: relative;
+            font-size: 15px;
+            color: var(--gold);
+            background: rgba(0, 0, 0, 0.25);
+            padding: 6px 14px;
+            border-radius: 50px;
+            margin-bottom: 15px;
+            display: inline-block;
+            border: 1px solid rgba(255, 204, 0, 0.3);
         }
 
         .stats p {
-            font-size: 16px;
+            font-size: 14px;
             margin: 8px 0;
-            color: #e0e0e0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
+            color: rgba(255, 255, 255, 0.9);
         }
 
         .stats .highlight {
-            font-weight: bold;
-            color: #ffeb3b;
+            font-weight: 700;
+            color: var(--gold);
         }
 
-        /* Progress Circle */
-        .progress-circle {
-            position: relative;
-            width: 80px;
-            height: 80px;
-            margin: 15px auto;
-        }
-
-        .progress-circle svg {
-            transform: rotate(-90deg);
-        }
-
-        .progress-circle circle {
-            fill: none;
-            stroke-width: 8;
-            stroke-linecap: round;
-            cx: 40;
-            cy: 40;
-            r: 36;
-        }
-
-        .progress-circle .bg {
-            stroke: rgba(255, 255, 255, 0.2);
-        }
-
-        .progress-circle .progress {
-            stroke: #ffeb3b;
-            stroke-dasharray: 226;
-            stroke-dashoffset: 0;
-            transition: stroke-dashoffset 1s ease;
-        }
-
-        .progress-circle span {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 18px;
-            font-weight: bold;
-            color: #ffeb3b;
-        }
-
-        /* Chart Section */
         .chart-container {
             margin: 20px 0;
-            position: relative;
-            height: 220px;
+            height: 200px;
             width: 100%;
         }
 
-        /* Recent Tasks */
         .recent-tasks {
             margin-top: 20px;
             text-align: left;
         }
 
         .recent-tasks h4 {
-            font-size: 16px;
-            color: #ffeb3b;
+            font-size: 15px;
+            color: var(--gold);
             margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
 
         .recent-tasks ul {
@@ -278,92 +252,47 @@ foreach ($enfants as $key => $enfant) {
         }
 
         .recent-tasks li {
-            font-size: 14px;
-            margin: 8px 0;
+            font-size: 13px;
+            margin: 6px 0;
             display: flex;
             justify-content: space-between;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 10px;
+            background: rgba(255, 255, 255, 0.08);
+            padding: 8px 12px;
             border-radius: 8px;
-            transition: background 0.3s ease;
-        }
-
-        .recent-tasks li:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        /* Back Button */
-        .retour {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            color: white;
-            background: #e63946;
-            padding: 12px 25px;
-            border-radius: 10px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: background 0.3s ease, transform 0.3s ease;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
-
-        .retour:hover {
-            background: #ffeb3b;
-            color: #2c3e50;
-            transform: scale(1.05);
-        }
-
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes slideIn {
-            from { transform: translateY(20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
         }
     </style>
 </head>
 <body>
-    <a href="tache.php" class="retour">Retour</a>
     <div class="container">
-        <!-- Family Summary -->
-        <div class="summary-card">
-            <p>Points Familiaux: <span class="highlight"><?= $total_family_points ?> 🌟</span></p>
-            <p>Tâches Complétées: <span class="highlight"><?= $total_family_tasks ?></span></p>
+        <div class="top-nav">
+            <a href="tache.php" class="retour">⬅ Retour aux Tâches</a>
         </div>
 
-        <h2>Performance des Enfants</h2>
+        <div class="summary-card">
+            <p>Total Points Familiaux: <span class="highlight"><?= $total_family_points ?> 🌟</span></p>
+            <p>Total Tâches Accomplies: <span class="highlight"><?= $total_family_tasks ?> 🎯</span></p>
+        </div>
+
+        <h2 class="page-title">⚡ Performance des Enfants</h2>
+
         <div class="enfant-container">
             <?php foreach ($enfants as $enfant): ?>
                 <div class="enfant-box">
                     <h3><?= htmlspecialchars($enfant['nom_enfant']) ?></h3>
                     <div class="motivational-title"><?= htmlspecialchars($enfant['title']) ?></div>
-                    
-                    <!-- Progress Circle -->
-                    <div class="progress-circle">
-                        <svg width="80" height="80">
-                            <circle class="bg" stroke="rgba(255, 255, 255, 0.2)"></circle>
-                            <circle class="progress" stroke-dashoffset="<?= 226 - ($enfant['total_points'] / 100 * 226) ?>"></circle>
-                        </svg>
-                        <span><?= min($enfant['total_points'], 100) ?>%</span>
-                    </div>
 
                     <div class="stats">
-                        <p><i class="fas fa-user"></i> Âge: <span class="highlight"><?= $enfant['age_enfant'] ?> ans</span></p>
-                        <p><i class="fas fa-star"></i> Points totaux: <span class="highlight"><?= $enfant['total_points'] ?> 🌟</span></p>
-                        <p><i class="fas fa-check-circle"></i> Tâches complétées: <span class="highlight"><?= $enfant['task_count'] ?></span></p>
+                        <p>👤 Âge: <span class="highlight"><?= $enfant['age_enfant'] ?> ans</span></p>
+                        <p>🌟 Points totaux: <span class="highlight"><?= $enfant['total_points'] ?> pts</span></p>
+                        <p>✅ Tâches complétées: <span class="highlight"><?= $enfant['task_count'] ?></span></p>
                     </div>
 
-                    <!-- Points Trend Chart -->
                     <div class="chart-container">
                         <canvas id="chart-<?= $enfant['id'] ?>"></canvas>
                     </div>
 
-                    <!-- Recent Tasks -->
                     <div class="recent-tasks">
-                        <h4><i class="fas fa-tasks"></i> Dernières Tâches</h4>
+                        <h4>📋 Dernières Tâches</h4>
                         <ul>
                             <?php if (empty($enfant['recent_tasks'])): ?>
                                 <li>Aucune tâche récente</li>
@@ -371,7 +300,7 @@ foreach ($enfants as $key => $enfant) {
                                 <?php foreach ($enfant['recent_tasks'] as $task): ?>
                                     <li>
                                         <span><?= htmlspecialchars($task['tache']) ?></span>
-                                        <span><?= $task['points_gagnes'] ?> pts</span>
+                                        <span style="color:#ffcc00; font-weight:bold;"><?= $task['points_gagnes'] ?> pts</span>
                                     </li>
                                 <?php endforeach; ?>
                             <?php endif; ?>
@@ -384,9 +313,7 @@ foreach ($enfants as $key => $enfant) {
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Render charts for each child
             <?php foreach ($enfants as $enfant): ?>
-                // Prepare chart data
                 const labels<?= $enfant['id'] ?> = [
                     <?php
                     $labels = array_map(function($entry) {
@@ -404,7 +331,6 @@ foreach ($enfants as $key => $enfant) {
                     ?>
                 ];
 
-                // Create the chart
                 const ctx<?= $enfant['id'] ?> = document.getElementById('chart-<?= $enfant['id'] ?>').getContext('2d');
                 new Chart(ctx<?= $enfant['id'] ?>, {
                     type: 'line',
@@ -413,68 +339,24 @@ foreach ($enfants as $key => $enfant) {
                         datasets: [{
                             label: 'Points Gagnés',
                             data: data<?= $enfant['id'] ?>,
-                            borderColor: '#ffeb3b',
-                            backgroundColor: 'rgba(255, 235, 59, 0.2)',
+                            borderColor: '#ffcc00',
+                            backgroundColor: 'rgba(255, 204, 0, 0.15)',
                             fill: true,
                             tension: 0.4,
-                            pointBackgroundColor: '#ffeb3b',
+                            pointBackgroundColor: '#ffcc00',
                             pointBorderColor: '#fff',
-                            pointHoverBackgroundColor: '#fff',
-                            pointHoverBorderColor: '#ffeb3b',
-                            pointRadius: 4,
-                            pointHoverRadius: 6
+                            pointRadius: 4
                         }]
                     },
                     options: {
                         responsive: true,
                         maintainAspectRatio: false,
                         scales: {
-                            x: {
-                                title: {
-                                    display: true,
-                                    text: 'Date',
-                                    color: '#e0e0e0',
-                                    font: { size: 14 }
-                                },
-                                ticks: {
-                                    color: '#e0e0e0',
-                                    maxTicksLimit: 5
-                                },
-                                grid: {
-                                    color: 'rgba(255, 255, 255, 0.1)'
-                                }
-                            },
-                            y: {
-                                title: {
-                                    display: true,
-                                    text: 'Points',
-                                    color: '#e0e0e0',
-                                    font: { size: 14 }
-                                },
-                                ticks: {
-                                    color: '#e0e0e0',
-                                    stepSize: 10
-                                },
-                                grid: {
-                                    color: 'rgba(255, 255, 255, 0.1)'
-                                },
-                                beginAtZero: true
-                            }
+                            x: { ticks: { color: 'rgba(255, 255, 255, 0.7)' }, grid: { color: 'rgba(255, 255, 255, 0.1)' } },
+                            y: { ticks: { color: 'rgba(255, 255, 255, 0.7)' }, grid: { color: 'rgba(255, 255, 255, 0.1)' }, beginAtZero: true }
                         },
                         plugins: {
-                            legend: {
-                                labels: {
-                                    color: '#e0e0e0',
-                                    font: { size: 14 }
-                                }
-                            },
-                            tooltip: {
-                                backgroundColor: 'rgba(0, 0, 0, 0.8)',
-                                titleColor: '#ffeb3b',
-                                bodyColor: '#e0e0e0',
-                                borderColor: '#ffeb3b',
-                                borderWidth: 1
-                            }
+                            legend: { labels: { color: 'rgba(255, 255, 255, 0.9)' } }
                         }
                     }
                 });

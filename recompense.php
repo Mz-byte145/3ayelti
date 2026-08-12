@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['enfant_id'], $_POST['
             $stmt = mysqli_prepare($conn, $sql_insert);
             mysqli_stmt_bind_param($stmt, "isi", $enfant_id, $recompense, $points_requis);
             if (mysqli_stmt_execute($stmt)) {
-                $success_message = "Récompense obtenue avec succès !";
+                $success_message = "Récompense obtenue avec succès ! 🎉";
             } else {
                 $error_message = "Erreur lors de l'échange des points.";
             }
@@ -83,29 +83,27 @@ $enfants = mysqli_fetch_all($result, MYSQLI_ASSOC);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Récompenses Familiales | Tableau de Bord</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Récompenses Familiales - 3ayelti</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #4a6bff;
-            --secondary: #ff6b6b;
-            --accent: #feca57;
-            --dark: #2f3640;
-            --light: #f5f6fa;
-            --success: #1dd1a1;
-            --error: #ff6b6b;
+            --gradient-bg: linear-gradient(135deg, #1f2440 0%, #3b4371 50%, #f3904f 100%);
+            --gold: #ffcc00;
+            --gold-hover: #ffe066;
+            --glass-bg: rgba(255, 255, 255, 0.12);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --glass-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
         }
 
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
         }
 
         body {
-            background:  linear-gradient(135deg, #3b4371, #f3904f);;
-            color: var(--light);
+            background: var(--gradient-bg);
+            color: white;
             font-family: 'Poppins', sans-serif;
             min-height: 100vh;
             padding: 40px 20px;
@@ -116,75 +114,95 @@ $enfants = mysqli_fetch_all($result, MYSQLI_ASSOC);
             margin: 0 auto;
         }
 
-        header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            background: linear-gradient(to right, var(--accent), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            display: inline-block;
-        }
-
-        .subtitle {
-            font-size: 1.1rem;
-            opacity: 0.9;
-            margin-bottom: 20px;
-        }
-
-        .btn {
-            display: inline-flex;
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
-            padding: 12px 24px;
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            font-size: 16px;
-            font-weight: 500;
-            text-decoration: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-            background-color: #3a56e8;
-        }
-
-        .btn i {
-            margin-right: 8px;
-        }
-
-        .btn-back {
-            background-color: var(--dark);
             margin-bottom: 30px;
         }
 
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
         .btn-back:hover {
-            background-color: #1e272e;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-family: 'Bangers', cursive;
+            font-size: 44px;
+            color: var(--gold);
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.85);
+            font-weight: 300;
+        }
+
+        .sub-nav-actions {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 35px;
+            flex-wrap: wrap;
+        }
+
+        .action-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #ffcc00, #ff9900);
+            color: #2c3e50;
+            font-weight: 700;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-size: 15px;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(255, 204, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .action-chip:hover {
+            background: linear-gradient(135deg, #ffe066, #ffaa00);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 204, 0, 0.5);
         }
 
         .rewards-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
             gap: 25px;
-            margin-top: 30px;
         }
 
         .child-card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
             padding: 25px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            box-shadow: var(--glass-shadow);
             transition: transform 0.3s ease;
             position: relative;
         }
@@ -199,25 +217,23 @@ $enfants = mysqli_fetch_all($result, MYSQLI_ASSOC);
             align-items: center;
             margin-bottom: 20px;
             padding-bottom: 15px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
         }
 
         .child-name {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--accent);
+            font-family: 'Bangers', cursive;
+            font-size: 28px;
+            letter-spacing: 1px;
+            color: #a8e6cf;
         }
 
         .child-points {
-            font-size: 1.2rem;
+            font-size: 16px;
             font-weight: 700;
-            background: var(--success);
-            padding: 5px 15px;
+            background: linear-gradient(135deg, #4CAF50, #2E7D32);
+            padding: 6px 16px;
             border-radius: 50px;
-        }
-
-        .reward-form {
-            margin-top: 20px;
+            box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);
         }
 
         .form-group {
@@ -226,185 +242,119 @@ $enfants = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
         select {
             width: 100%;
-            padding: 12px 15px;
-            border-radius: 8px;
-            border: none;
-            background-color: rgba(255, 255, 255, 0.9);
-            font-size: 16px;
-            color: var(--dark);
-            appearance: none;
-            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-            background-repeat: no-repeat;
-            background-position: right 15px center;
-            background-size: 15px;
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            background: rgba(255, 255, 255, 0.15);
+            font-size: 15px;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            outline: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        select option {
+            background: #2c3e50;
+            color: white;
         }
 
         select:focus {
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(74, 107, 255, 0.3);
+            background: rgba(255, 255, 255, 0.25);
+            border-color: var(--gold);
         }
 
         .btn-redeem {
             width: 100%;
-            background-color: var(--accent);
-            color: var(--dark);
-            font-weight: 600;
+            background: linear-gradient(135deg, #ffcc00, #ff9900);
+            color: #2c3e50;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
             padding: 14px;
-            margin-top: 10px;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 16px rgba(255, 204, 0, 0.3);
         }
 
         .btn-redeem:hover {
-            background-color: #ffbe33;
+            background: linear-gradient(135deg, #ffe066, #ffaa00);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 204, 0, 0.5);
         }
 
-        .reward-option {
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .reward-icon {
-            margin-right: 10px;
-        }
-
-        .reward-cost {
-            color: var(--accent);
-            font-weight: 600;
-        }
-
-        /* Messages d'alerte */
         .alert {
-            padding: 15px 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
+            padding: 14px 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            font-weight: 600;
             display: flex;
             align-items: center;
-            animation: fadeIn 0.3s ease-out;
+            gap: 10px;
         }
 
         .alert-error {
-            background-color: rgba(255, 107, 107, 0.2);
-            border-left: 4px solid var(--error);
-            color: white;
+            background: rgba(255, 82, 82, 0.25);
+            border: 1px solid #ff5252;
+            color: #ffcdd2;
         }
 
         .alert-success {
-            background-color: rgba(29, 209, 161, 0.2);
-            border-left: 4px solid var(--success);
-            color: white;
-        }
-
-        .alert i {
-            margin-right: 10px;
-            font-size: 1.2rem;
+            background: rgba(76, 175, 80, 0.25);
+            border: 1px solid #4CAF50;
+            color: #c8e6c9;
         }
 
         .points-warning {
-            color: var(--error);
-            font-size: 0.9rem;
-            margin-top: 5px;
+            color: #ff8a80;
+            font-size: 13px;
+            margin-top: 8px;
             display: none;
-            font-weight: 500;
-        }
-
-        @media (max-width: 768px) {
-            .rewards-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            h1 {
-                font-size: 2rem;
-            }
-        }
-
-        /* Animation */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            font-weight: 600;
         }
 
         @keyframes shake {
             0%, 100% { transform: translateX(0); }
-            20%, 60% { transform: translateX(-5px); }
-            40%, 80% { transform: translateX(5px); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
         }
 
         .shake {
             animation: shake 0.4s ease-in-out;
         }
-
-        .child-card {
-            animation: fadeIn 0.5s ease forwards;
-        }
-
-        .child-card:nth-child(1) { animation-delay: 0.1s; }
-        .child-card:nth-child(2) { animation-delay: 0.2s; }
-        .child-card:nth-child(3) { animation-delay: 0.3s; }
-        .child-card:nth-child(4) { animation-delay: 0.4s; }
-    .tirage-btn {
-    display: inline-block;
-    background-color: #ffcc00;
-    color: #2f3640;
-    font-weight: bold;
-    padding: 12px 24px;
-    border-radius: 30px;
-    font-size: 16px;
-    text-decoration: none;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    transition: background 0.3s, transform 0.2s;
-}
-
-.tirage-btn:hover {
-    background-color: #e6b800;
-    transform: translateY(-2px);
-}
-.performance-btn {
-    display: inline-block;
-    background-color: #ffcc00;
-    color: #2f3640;
-    font-weight: bold;
-    padding: 12px 24px;
-    border-radius: 30px;
-    font-size: 16px;
-    text-decoration: none;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    transition: background 0.3s, transform 0.2s;
-}
-
-.performance-btn:hover {
-    background-color: #e6b800;
-    transform: translateY(-2px);
-}
-
     </style>
 </head>
 <body>
     <div class="container">
-        <a href="tache.php" class="btn btn-back"><i class="fas fa-arrow-left"></i> Retour aux tâches</a>
+        <div class="top-nav">
+            <a href="tache.php" class="btn-back">⬅ Retour aux tâches</a>
+        </div>
         
         <header>
-            <h1>Récompenses Familiales</h1>
-            <p class="subtitle">Échangez les points accumulés contre des récompenses amusantes !</p>
+            <h1>🏆 Récompenses Familiales</h1>
+            <p class="subtitle">Échangez les points accumulés contre des récompenses bien méritées !</p>
         </header>
-        <div style="text-align: center; margin-top: 20px;">
-    <a href="tirage.php" class="tirage-btn">
-        🎡 Tirage au sort - Gagne une récompense !
-    </a>
-    <a href="performance.php" class="performance-btn">
-        performance de chaque enfant⚡
-    </a>
-</div>
+
+        <div class="sub-nav-actions">
+            <a href="tirage.php" class="action-chip">
+                🎡 Tirage au sort - Gagne une récompense !
+            </a>
+            <a href="performance.php" class="action-chip">
+                ⚡ Performance de chaque enfant
+            </a>
+        </div>
 
         <?php if ($error_message): ?>
             <div class="alert alert-error">
-                <i class="fas fa-exclamation-circle"></i>
-                <?= $error_message ?>
+                ❌ <?= htmlspecialchars($error_message) ?>
             </div>
         <?php endif; ?>
 
         <?php if ($success_message): ?>
             <div class="alert alert-success">
-                <i class="fas fa-check-circle"></i>
-                <?= $success_message ?>
+                ✅ <?= htmlspecialchars($success_message) ?>
             </div>
         <?php endif; ?>
 
@@ -413,7 +363,7 @@ $enfants = mysqli_fetch_all($result, MYSQLI_ASSOC);
                 <div class="child-card" id="child-card-<?= $enfant['id'] ?>">
                     <div class="child-header">
                         <h3 class="child-name"><?= htmlspecialchars($enfant['nom_enfant']) ?></h3>
-                        <div class="child-points"><?= $enfant['points_dispo'] ?> pts</div>
+                        <div class="child-points">🌟 <?= $enfant['points_dispo'] ?> pts</div>
                     </div>
 
                     <form method="POST" class="reward-form" onsubmit="return validatePoints(<?= $enfant['id'] ?>, <?= $enfant['points_dispo'] ?>)">
@@ -424,22 +374,19 @@ $enfants = mysqli_fetch_all($result, MYSQLI_ASSOC);
                                 <option value="">-- Sélectionnez une récompense --</option>
                                 <?php foreach ($recompenses as $nom => $details): ?>
                                     <option value="<?= $nom ?>" data-points="<?= $details['points'] ?>">
-                                        <span class="reward-option">
-                                            <span><?= $details['icone'] ?> <?= $nom ?></span>
-                                            <span class="reward-cost"><?= $details['points'] ?> pts</span>
-                                        </span>
+                                        <?= $details['icone'] ?> <?= $nom ?> (<?= $details['points'] ?> pts)
                                     </option>
                                 <?php endforeach; ?>
                             </select>
                             <div class="points-warning" id="points-warning-<?= $enfant['id'] ?>">
-                                <i class="fas fa-exclamation-triangle"></i> Solde de points insuffisant !
+                                ⚠️ Solde de points insuffisant !
                             </div>
                         </div>
                         
                         <input type="hidden" name="points" id="pointsInput-<?= $enfant['id'] ?>">
                         
-                        <button type="submit" class="btn btn-redeem">
-                            <i class="fas fa-gift"></i> Obtenir la récompense
+                        <button type="submit" class="btn-redeem">
+                            🎁 Obtenir la récompense
                         </button>
                     </form>
                 </div>
@@ -456,7 +403,6 @@ $enfants = mysqli_fetch_all($result, MYSQLI_ASSOC);
                 const pointsRequires = parseInt(selectedOption.getAttribute('data-points'));
                 document.getElementById(`pointsInput-${enfantId}`).value = pointsRequires;
                 
-                // Afficher l'avertissement si les points sont insuffisants
                 if (pointsRequires > pointsDispo) {
                     warningElement.style.display = 'block';
                     document.getElementById(`child-card-${enfantId}`).classList.add('shake');

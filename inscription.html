@@ -3,134 +3,202 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Créer un Compte</title>
+    <title>Créer un Compte - 3ayelti</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <script src="script.js"></script>
     <style>
-        body {
+        :root {
+            --gradient-bg: linear-gradient(135deg, #1f2440 0%, #3b4371 50%, #f3904f 100%);
+            --gold: #ffcc00;
+            --gold-hover: #ffe066;
+            --glass-bg: rgba(255, 255, 255, 0.12);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --glass-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            background: linear-gradient(135deg, #3b4371, #f3904f);
-            height: 100vh;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            background: var(--gradient-bg);
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-family: 'Bangers', cursive;
+            font-family: 'Poppins', sans-serif;
             color: white;
             text-align: center;
         }
 
         .container {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 30px 25px;
-            border-radius: 15px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-            width: 320px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: var(--glass-shadow);
+            width: 100%;
+            max-width: 420px;
+            position: relative;
+            animation: fadeInUp 0.7s ease-out;
         }
 
         h2 {
-            font-size: 36px;
+            font-family: 'Bangers', cursive;
+            font-size: 38px;
             margin-bottom: 20px;
-            color: #ffcc00;
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+            color: var(--gold);
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
         }
 
-        label {
-            font-size: 20px;
-            margin: 10px 0 5px;
-            display: block;
+        .form-group {
+            margin-bottom: 16px;
             text-align: left;
         }
 
+        label {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            display: block;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
         input {
-            padding: 10px;
-            margin: 5px 0 15px;
+            padding: 12px 16px;
             width: 100%;
-            border: none;
-            border-radius: 5px;
-            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.15);
             color: white;
-            font-size: 16px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 15px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        input:focus {
+            background: rgba(255, 255, 255, 0.25);
+            border-color: var(--gold);
+            box-shadow: 0 0 12px rgba(255, 204, 0, 0.4);
+        }
+
+        .error {
+            color: #ff8a80;
+            font-size: 13px;
+            margin-top: 4px;
+            display: block;
+            font-weight: 500;
         }
 
         button {
-            padding: 12px 20px;
+            width: 100%;
+            padding: 14px;
             margin-top: 10px;
             border: none;
-            border-radius: 5px;
-            background: #ffcc00;
-            color: #333;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #ffcc00, #ff9900);
+            color: #2c3e50;
+            font-family: 'Poppins', sans-serif;
+            font-size: 17px;
+            font-weight: 700;
             cursor: pointer;
-            font-size: 18px;
-            transition: 0.3s;
-            width: 100%;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 16px rgba(255, 204, 0, 0.3);
         }
 
         button:hover {
-            background: #e6b800;
+            background: linear-gradient(135deg, #ffe066, #ffaa00);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 204, 0, 0.5);
+        }
+
+        .links {
+            margin-top: 20px;
         }
 
         a {
-            color: #ffcc00;
+            color: var(--gold);
             text-decoration: none;
-            margin-top: 15px;
-            display: inline-block;
-            font-size: 16px;
+            font-size: 14px;
+            transition: color 0.3s;
         }
 
         a:hover {
+            color: var(--gold-hover);
             text-decoration: underline;
         }
-        .error {
-        color: red;
-        font-size: 14px;
-        margin-left: 10px;
-    }
-    .retour {
+
+        .retour {
             position: absolute;
-            top: 15px;
-            left: 15px;
-            font-size: 1.5em;
+            top: 20px;
+            left: 20px;
+            font-size: 18px;
             color: white;
             text-decoration: none;
-            background-color: rgba(255, 255, 255, 0.2);
-            padding: 5px 10px;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-}
+            background: rgba(255, 255, 255, 0.2);
+            padding: 6px 12px;
+            border-radius: 8px;
+            transition: background 0.3s ease;
+        }
 
-.retour:hover {
-    background-color: rgba(255, 255, 255, 0.4);
-}
+        .retour:hover {
+            background: rgba(255, 255, 255, 0.4);
+            text-decoration: none;
+        }
 
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body>
-    <a href="acceuil.html" class="retour">⬅ </a>
+    <a href="acceuil.html" class="retour">⬅ Accueil</a>
     <div class="container">
         <h2>Créer un Compte</h2>
-        <form  action="registre.php" method="post" onsubmit="return valid()">
-            <label for="nom">Nom :</label>
-            <input type="text" id="nom" name="nom">
-            <span id="nomError" class="error"></span>
-            <br>
-        
-            <label for="email">Email :</label>
-            <input type="text" id="email" name="email">
-            <span id="emailError" class="error"></span>
-            <br>
-        
-            <label for="password">Mot de passe :</label>
-            <input type="password" id="password" name="password">
-            <span id="passwordError" class="error"></span>
-            <br>
-        
-            <label for="confirmpss">Confirmer le mot de passe :</label>
-            <input type="password" id="confirmpss" name="confirmpss">
-            <span id="confirmError" class="error"></span>
-            <br>
-            <button type="submit">S'inscrire</button>
+        <form action="registre.php" method="post" onsubmit="return valid()">
+            <div class="form-group">
+                <label for="nom">Nom de famille / Prénom</label>
+                <input type="text" id="nom" name="nom" placeholder="Votre nom" required>
+                <span id="nomError" class="error"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Adresse Email</label>
+                <input type="email" id="email" name="email" placeholder="exemple@email.com" required>
+                <span id="emailError" class="error"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Mot de passe</label>
+                <input type="password" id="password" name="password" placeholder="••••••••" required>
+                <span id="passwordError" class="error"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="confirmpss">Confirmer le mot de passe</label>
+                <input type="password" id="confirmpss" name="confirmpss" placeholder="••••••••" required>
+                <span id="confirmError" class="error"></span>
+            </div>
+
+            <button type="submit">S'inscrire ✨</button>
         </form>
-        <a href="login.php">Déjà un compte ? Se connecter</a>
+
+        <div class="links">
+            <a href="login.php">Déjà un compte ? Se connecter</a>
+        </div>
     </div>
 </body>
 </html>

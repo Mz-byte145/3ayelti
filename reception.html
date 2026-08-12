@@ -4,70 +4,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestion Familiale</title>
+    <title>Gestion du Budget Familial - 3ayelti</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        body {
+        :root {
+            --gradient-bg: linear-gradient(135deg, #1f2440 0%, #3b4371 50%, #f3904f 100%);
+            --gold: #ffcc00;
+            --gold-hover: #ffe066;
+            --glass-bg: rgba(255, 255, 255, 0.12);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --glass-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            background: linear-gradient(135deg, #3b4371, #f3904f);
-            height: 100vh;
+        }
+
+        body {
+            margin: 0;
+            padding: 30px 20px;
+            background: var(--gradient-bg);
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             font-family: 'Poppins', sans-serif;
             color: white;
             text-align: center;
-            overflow: auto;
         }
 
         .container {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-            width: 900px;
-            max-height: 90vh;
-            overflow-y: auto;
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            padding: 40px;
+            border-radius: 24px;
+            box-shadow: var(--glass-shadow);
+            width: 100%;
+            max-width: 750px;
             position: relative;
+            animation: fadeInUp 0.7s ease-out;
         }
 
         h2 {
             font-family: 'Bangers', cursive;
-            font-size: 36px;
-            margin-bottom: 15px;
-            color: #ffcc00;
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+            font-size: 42px;
+            margin-bottom: 25px;
+            color: var(--gold);
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        h3 {
+            font-size: 20px;
+            color: #a8e6cf;
+            margin: 25px 0 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            padding-bottom: 8px;
         }
 
         label {
-            font-size: 18px;
-            margin-bottom: 5px;
+            font-size: 16px;
+            margin-bottom: 8px;
             display: block;
             font-weight: 600;
+            text-align: left;
         }
 
-        input[type="range"],
         input[type="number"],
         input[type="text"] {
-            padding: 10px;
+            padding: 12px 16px;
             margin: 8px 0;
-            width: 80%;
-            border: none;
-            border-radius: 15px;
-            background: rgba(255, 255, 255, 0.3);
+            width: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.15);
             color: white;
             font-family: 'Poppins', sans-serif;
-            transition: background 0.3s ease;
+            font-size: 15px;
+            outline: none;
+            transition: all 0.3s ease;
         }
 
-        input[type="range"]:hover {
-            background: rgba(255, 255, 255, 0.5);
+        input[type="number"]:focus,
+        input[type="text"]:focus {
+            background: rgba(255, 255, 255, 0.25);
+            border-color: var(--gold);
+            box-shadow: 0 0 12px rgba(255, 204, 0, 0.4);
         }
 
         .slider-container {
             position: relative;
-            width: 80%;
-            margin: 20px auto;
+            width: 100%;
+            margin: 15px 0 25px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 16px;
         }
 
         .salary-slider,
@@ -75,172 +111,153 @@
             width: 100%;
             -webkit-appearance: none;
             appearance: none;
-            height: 12px;
+            height: 10px;
             background: rgba(255, 255, 255, 0.3);
-            border-radius: 15px;
+            border-radius: 10px;
             outline: none;
             transition: background 0.3s ease;
-        }
-
-        .salary-slider:hover,
-        .age-slider:hover {
-            background: rgba(255, 255, 255, 0.5);
         }
 
         .salary-slider::-webkit-slider-thumb,
         .age-slider::-webkit-slider-thumb {
             -webkit-appearance: none;
             appearance: none;
-            width: 20px;
-            height: 20px;
+            width: 24px;
+            height: 24px;
             border-radius: 50%;
-            background: #ffcc00;
+            background: var(--gold);
             cursor: pointer;
+            box-shadow: 0 0 10px rgba(255, 204, 0, 0.6);
+            transition: transform 0.2s ease;
         }
 
-        .salary-slider::-moz-range-thumb,
-        .age-slider::-moz-range-thumb {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: #ffcc00;
-            cursor: pointer;
+        .salary-slider::-webkit-slider-thumb:hover,
+        .age-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
         }
 
         #salaireValeur {
-            font-size: 25px;
-            font-weight: bold;
-            color: #ffcc00;
-            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
-            transition: color 0.3s ease, transform 0.3s ease;
+            display: inline-block;
+            margin-top: 10px;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--gold);
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
         }
 
-        #salaireValeur:hover {
-            color: #fff;
-            transform: scale(1.1);
-        }
-
-        .factures {
-            margin-top: 20px;
+        .child-card {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 20px;
+            border-radius: 16px;
+            margin-bottom: 15px;
+            text-align: left;
+            animation: fadeInUp 0.4s ease-out;
         }
 
         .facture-item {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: rgba(255, 255, 255, 0.2);
-            padding: 15px;
+            background: rgba(255, 255, 255, 0.12);
+            padding: 14px 20px;
             margin: 10px 0;
-            border-radius: 10px;
+            border-radius: 12px;
             transition: background 0.3s ease;
         }
 
         .facture-item:hover {
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.2);
         }
 
         .facture-item input[type="number"] {
-            width: 100px;
-            padding: 8px;
-            border-radius: 10px;
-            background: rgba(255, 255, 255, 0.3);
-            color: white;
+            width: 140px;
+            padding: 10px;
+            margin: 0;
         }
 
         .facture-item label {
-            font-size: 16px;
-            font-weight: 600;
-            color: #ffcc00;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
         }
 
         .facture-item input[type="checkbox"] {
-            margin-right: 10px;
-        }
-
-        .facture-item button {
-            padding: 8px 12px;
-            background: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 8px;
+            width: 20px;
+            height: 20px;
+            margin-right: 12px;
+            accent-color: var(--gold);
             cursor: pointer;
-            transition: background 0.3s ease;
-        }
-
-        .facture-item button:hover {
-            background: #45a049;
         }
 
         .facture-icon {
-            font-size: 20px;
-            color: #ffcc00;
+            font-size: 22px;
             margin-right: 10px;
         }
 
-        .facture-item .remove-btn {
-            background: #e64a19;
-        }
-
-        .facture-item .remove-btn:hover {
-            background: #d43f00;
-        }
-
-        .factures-container {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        button {
-            padding: 10px 18px;
-            margin-top: 8px;
+        button[type="submit"] {
+            width: 100%;
+            padding: 16px;
+            margin-top: 25px;
             border: none;
-            border-radius: 5px;
-            background: #ffcc00;
-            color: #333;
-            cursor: pointer;
-            transition: 0.3s;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #ffcc00, #ff9900);
+            color: #2c3e50;
             font-family: 'Poppins', sans-serif;
-            font-weight: 600;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(255, 204, 0, 0.3);
         }
 
-        button:hover {
-            background: #e6b800;
+        button[type="submit"]:hover {
+            background: linear-gradient(135deg, #ffe066, #ffaa00);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(255, 204, 0, 0.5);
         }
 
         .error-message {
-            background-color: #ff4747;
+            background-color: rgba(255, 82, 82, 0.3);
+            border: 1px solid #ff5252;
             color: white;
-            padding: 10px;
-            border-radius: 5px;
-            margin-top: 20px;
+            padding: 14px;
+            border-radius: 12px;
+            margin-bottom: 20px;
             display: none;
-            font-size: 16px;
-            font-weight: bold;
-            text-align: center;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <h2>Gestion du Budget Familial</h2>
+        <h2>Gestion du Budget Familial 💰</h2>
         <form action="salaireFacture.php" method="POST" onsubmit="return validerFormulaire()">
             <div id="errorMessage" class="error-message"></div>
 
-            <label for="salaire">Salaire Total (DT) :</label>
+            <label for="salaire">Salaire Total Mensuel (DT) :</label>
             <div class="slider-container">
                 <input type="range" id="salaire" name="salaire" class="salary-slider" min="0" max="6000" step="10"
-                    value="0" oninput="updateSalaire()">
-                <span id="salaireValeur">0 DT</span>
+                    value="1500" oninput="updateSalaire()">
+                <span id="salaireValeur">1500 DT</span>
             </div>
 
-            <h3>Nombre d'enfants :</h3>
-            <input type="number" id="nbEnfants" name="nb_enfants" min="0" max="5" value="0"
-                onchange="genererChampsEnfants()">
+            <h3>👶 Nombre d'enfants :</h3>
+            <div style="text-align: left;">
+                <input type="number" id="nbEnfants" name="nb_enfants" min="0" max="5" value="0"
+                    placeholder="Entrez le nombre d'enfants" onchange="genererChampsEnfants()">
+            </div>
             <div id="enfantsContainer"></div>
 
-            <h3>Factures :</h3>
+            <h3>🧾 Factures Récurrentes :</h3>
             <div class="facture-item">
                 <label><input type="checkbox" name="facture[]" value="Electricité"> <span
                         class="facture-icon">⚡</span>Électricité</label>
@@ -256,15 +273,15 @@
                         class="facture-icon">🌐</span>Internet</label>
                 <input type="number" name="montant[Internet]" placeholder="Montant (DT)">
             </div>
-            <button type="submit">Valider</button>
+
+            <button type="submit">Valider et Passer aux Tâches 🚀</button>
         </form>
     </div>
 
     <script>
         function updateSalaire() {
             let salaire = document.getElementById("salaire").value;
-            let salaireTexte = salaire + " DT";
-            document.getElementById("salaireValeur").textContent = salaireTexte;
+            document.getElementById("salaireValeur").textContent = salaire + " DT";
         }
 
         function updateAge(index) {
@@ -273,20 +290,21 @@
         }
 
         function genererChampsEnfants() {
-            let nb = document.getElementById("nbEnfants").value;
+            let nb = parseInt(document.getElementById("nbEnfants").value) || 0;
             let container = document.getElementById("enfantsContainer");
             container.innerHTML = "";
             for (let i = 0; i < nb; i++) {
                 let div = document.createElement("div");
-                div.classList.add('age-slider-container');
+                div.classList.add('child-card');
                 div.innerHTML = ` 
-                    <div class="child-name-container">
-                        <label class="child-name-label" for="nomEnfant${i}">Nom de l'Enfant ${i + 1} :</label>
-                        <input type="text" name="nomEnfant${i}" id="nomEnfant${i}" class="child-name-input" placeholder="Nom de l'enfant" />
+                    <div style="margin-bottom: 12px;">
+                        <label for="nomEnfant${i}">Nom de l'Enfant ${i + 1} :</label>
+                        <input type="text" name="nomEnfant${i}" id="nomEnfant${i}" placeholder="Prénom de l'enfant" required />
                     </div>
-                    <label class="age-slider-label" for="ageEnfant${i}">Âge</label>
-                    <input type="range" name="ageEnfant${i}" id="ageEnfant${i}" class="age-slider" min="0" max="22" value="0" oninput="updateAge(${i})">
-                    <span id="ageValeur${i}" class="age-value">0 ans</span>
+                    <div>
+                        <label for="ageEnfant${i}">Âge : <span id="ageValeur${i}" style="color:#ffcc00; font-weight:bold;">5 ans</span></label>
+                        <input type="range" name="ageEnfant${i}" id="ageEnfant${i}" class="age-slider" min="0" max="22" value="5" oninput="updateAge(${i})">
+                    </div>
                 `;
                 container.appendChild(div);
             }
@@ -302,39 +320,32 @@
             let salaire = document.getElementById("salaire").value;
             let nbEnfants = document.getElementById("nbEnfants").value;
             let factures = document.querySelectorAll('input[type="checkbox"]:checked');
-            let enfantsValides = true;
 
-            // Réinitialiser le message d'erreur
             document.getElementById("errorMessage").style.display = "none";
 
-            // Vérifier si le salaire est défini
             if (salaire <= 0) {
-                showError("Veuillez entrer un salaire valide.");
+                showError("Veuillez définir un salaire valide.");
                 return false;
             }
 
-            // Vérifier si le nombre d'enfants est valide
             if (nbEnfants < 0) {
                 showError("Veuillez entrer un nombre valide d'enfants.");
                 return false;
             }
 
-            // Vérifier si les noms des enfants sont remplis
             for (let i = 0; i < nbEnfants; i++) {
-                let nomEnfant = document.getElementById(`nomEnfant${i}`).value;
+                let nomEnfant = document.getElementById(`nomEnfant${i}`) ? document.getElementById(`nomEnfant${i}`).value.trim() : "";
                 if (!nomEnfant) {
                     showError("Veuillez entrer le nom de tous les enfants.");
                     return false;
                 }
             }
 
-            // Vérifier si au moins une facture est sélectionnée
             if (factures.length === 0) {
                 showError("Veuillez sélectionner au moins une facture.");
                 return false;
             }
 
-            // Vérifier que les montants des factures sont remplis
             let montantsFactures = document.querySelectorAll('.facture-item');
             for (let i = 0; i < montantsFactures.length; i++) {
                 let checkbox = montantsFactures[i].querySelector('input[type="checkbox"]');
@@ -342,16 +353,17 @@
 
                 if (checkbox && checkbox.checked) {
                     if (!montantInput || montantInput.value.trim() === "") {
-                        showError("Veuillez remplir tous les montants des factures.");
+                        showError("Veuillez remplir tous les montants des factures sélectionnées.");
                         return false;
                     }
                 }
             }
 
-            // Si tout est valide
             return true;
         }
+
+        // Initialize display
+        updateSalaire();
     </script>
 </body>
-
 </html>

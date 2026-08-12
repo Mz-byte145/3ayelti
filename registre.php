@@ -54,12 +54,27 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Erreur Inscription - 3ayelti</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        body {
+        :root {
+            --gradient-bg: linear-gradient(135deg, #1f2440 0%, #3b4371 50%, #f3904f 100%);
+            --gold: #ffcc00;
+            --glass-bg: rgba(255, 255, 255, 0.12);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --glass-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            background: linear-gradient(135deg, #3b4371, #f3904f);
-            height: 100vh;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            background: var(--gradient-bg);
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -67,28 +82,59 @@ $conn->close();
             color: white;
             text-align: center;
         }
+
         .error-card {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-            max-width: 400px;
-            width: 90%;
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: var(--glass-shadow);
+            max-width: 420px;
+            width: 100%;
+            animation: fadeInUp 0.7s ease-out;
         }
-        h2 { color: #ffcc00; margin-bottom: 15px; }
-        p { font-size: 1.1em; margin-bottom: 25px; }
+
+        h2 {
+            font-family: 'Bangers', cursive;
+            font-size: 38px;
+            color: var(--gold);
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+        }
+
+        p {
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
         .btn-retry {
             display: inline-block;
-            padding: 12px 25px;
-            background: #ffcc00;
-            color: #333;
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #ffcc00, #ff9900);
+            color: #2c3e50;
             text-decoration: none;
-            border-radius: 8px;
-            font-weight: bold;
-            transition: background 0.3s;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 16px rgba(255, 204, 0, 0.3);
         }
-        .btn-retry:hover { background: #e6b800; }
+
+        .btn-retry:hover {
+            background: linear-gradient(135deg, #ffe066, #ffaa00);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 204, 0, 0.5);
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body>
@@ -99,4 +145,3 @@ $conn->close();
     </div>
 </body>
 </html>
-

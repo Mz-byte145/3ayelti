@@ -85,182 +85,256 @@ $result = mysqli_stmt_get_result($stmt2);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mes Factures - Gestion de Budget</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Mes Factures - 3ayelti</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            background: linear-gradient(135deg, #3b4371, #f3904f);
-            background-size: cover;
-            color: #fff;
+        :root {
+            --gradient-bg: linear-gradient(135deg, #1f2440 0%, #3b4371 50%, #f3904f 100%);
+            --gold: #ffcc00;
+            --gold-hover: #ffe066;
+            --glass-bg: rgba(255, 255, 255, 0.12);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --glass-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
 
-        .container {
-            width: 85%;
-            margin: 0 auto;
-            padding-top: 100px;
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--gradient-bg);
+            color: #fff;
+            margin: 0;
+            padding: 40px 20px;
+            min-height: 100vh;
         }
 
-        h1 {
-            text-align: center;
-            font-family: 'Poppins', sans-serif;
-            color: #ffffff;
-            font-size: 36px;
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 30px;
         }
 
+        .retour {
+            text-decoration: none;
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .retour:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        h1 {
+            font-family: 'Bangers', cursive;
+            color: var(--gold);
+            font-size: 42px;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
         .table-container {
-            background-color: rgba(0, 0, 0, 0.6);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: var(--glass-shadow);
+            margin-bottom: 40px;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 20px;
         }
 
         th, td {
-            padding: 15px;
+            padding: 16px;
             text-align: center;
-            border: 1px solid #ddd;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         th {
-            background-color: #007BFF;
-            color: white;
+            background: rgba(0, 0, 0, 0.3);
+            color: var(--gold);
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        tr:nth-child(even) {
-            background-color:rgba(0, 0, 0, 0.1);
+        tr:last-child td {
+            border-bottom: none;
         }
 
         .btn-payer {
-            background-color: #28a745;
+            background: linear-gradient(135deg, #4CAF50, #2E7D32);
             color: white;
-            padding: 12px 25px;
+            padding: 10px 22px;
             border: none;
-            border-radius: 5px;
+            border-radius: 10px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
         }
 
         .btn-payer:hover {
-            background-color: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(76, 175, 80, 0.5);
+            background: linear-gradient(135deg, #66BB6A, #388E3C);
         }
 
         .total {
-            font-size: 18px;
-            font-weight: bold;
+            font-size: 22px;
+            font-weight: 700;
             text-align: center;
-            margin-top: 20px;
-            color: #ffbb33;
+            margin-top: 25px;
+            color: var(--gold);
+            background: rgba(0, 0, 0, 0.25);
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 204, 0, 0.3);
         }
 
         .conseils {
-            margin-top: 50px;
-            background-color: rgba(0, 0, 0, 0.7);
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: var(--glass-shadow);
         }
 
         .conseils h2 {
             text-align: center;
-            color: #ffbb33;
-            margin-bottom: 20px;
+            color: var(--gold);
+            font-family: 'Bangers', cursive;
+            font-size: 32px;
+            letter-spacing: 1px;
+            margin-bottom: 25px;
         }
 
         .conseil-item {
             margin-bottom: 20px;
-            font-size: 16px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 18px;
+            border-radius: 14px;
         }
 
-        .retour {
-            text-decoration: none;
-            background-color: #dc3545;
-            color: white;
-            padding: 12px 20px;
-            border-radius: 5px;
-            font-weight: bold;
-            margin-top: 20px;
-            display: inline-block;
+        .conseil-item h4 {
+            font-size: 18px;
+            color: #a8e6cf;
+            margin-bottom: 10px;
         }
 
-        .retour:hover {
-            background-color: #c82333;
+        .conseil-item ul {
+            padding-left: 20px;
         }
 
+        .conseil-item li {
+            margin-bottom: 6px;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 14px;
+        }
+
+        .empty-state {
+            padding: 30px;
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.8);
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <a href="tache.php" class="retour">Retour à tache familial</a>
+    <div class="top-nav">
+        <a href="tache.php" class="retour">⬅ Retour aux Tâches</a>
+    </div>
 
-    <h1>Mes Factures à Payer</h1>
+    <h1>🧾 Factures à Payer</h1>
 
     <div class="table-container">
-        <table>
-            <thead>
-                <tr>
-                    <th>Nom de la Facture</th>
-                    <th>Montant (TND)</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php while ($row = mysqli_fetch_assoc($result)): ?>
+        <?php if (mysqli_num_rows($result) > 0): ?>
+            <table>
+                <thead>
                     <tr>
-                        <td><?= htmlspecialchars($row['nom_facture']) ?></td>
-                        <td><?= number_format($row['montant'], 2, ',', ' ') ?> TND</td>
-                        <td>
-                            <form method="POST" style="display: inline;">
-                                <input type="hidden" name="facture_id" value="<?= $row['id'] ?>">
-                                <input type="hidden" name="montant" value="<?= $row['montant'] ?>">
-                                <button type="submit" class="btn-payer">Payer</button>
-                            </form>
-                        </td>
+                        <th>Nom de la Facture</th>
+                        <th>Montant (TND)</th>
+                        <th>Action</th>
                     </tr>
-                <?php endwhile; ?>
-            </tbody>
-        </table>
-
-        <p class="total">Total des Factures à Payer : <?= number_format($total_factures, 2, ',', ' ') ?> TND</p>
+                </thead>
+                <tbody>
+                    <?php while ($row = mysqli_fetch_assoc($result)): ?>
+                        <tr>
+                            <td style="font-weight:600; font-size:16px;"><?= htmlspecialchars($row['nom_facture']) ?></td>
+                            <td style="color:#ffcc00; font-weight:700;"><?= number_format($row['montant'], 2, ',', ' ') ?> TND</td>
+                            <td>
+                                <form method="POST" style="display: inline;">
+                                    <input type="hidden" name="facture_id" value="<?= $row['id'] ?>">
+                                    <input type="hidden" name="montant" value="<?= $row['montant'] ?>">
+                                    <button type="submit" class="btn-payer">Payer 💳</button>
+                                </form>
+                            </td>
+                        </tr>
+                    <?php endwhile; ?>
+                </tbody>
+            </table>
+            <div class="total">Total des Factures à Payer : <?= number_format($total_factures, 2, ',', ' ') ?> TND</div>
+        <?php else: ?>
+            <div class="empty-state">🎉 Félicitations ! Toutes vos factures sont réglées.</div>
+        <?php endif; ?>
     </div>
 
     <!-- Section des Conseils -->
     <div class="conseils">
-        <h2>Conseils pour économiser</h2>
+        <h2>💡 Conseils Éco-Responsables</h2>
 
         <div class="conseil-item">
             <h4>💧 Économiser l'Eau :</h4>
             <ul>
                 <li>Fermez le robinet pendant que vous vous brossez les dents.</li>
-                <li>Réparez les fuites immédiatement.</li>
-                <li>Utilisez des dispositifs de réduction du débit d'eau.</li>
+                <li>Réparez les fuites d'eau immédiatement.</li>
+                <li>Installez des mousseurs d'eau à faible débit.</li>
             </ul>
         </div>
 
         <div class="conseil-item">
-            <h4>💡 Économiser l'Électricité :</h4>
+            <h4>⚡ Économiser l'Électricité :</h4>
             <ul>
-                <li>Éteignez les lumières et appareils lorsque vous ne les utilisez pas.</li>
-                <li>Utilisez des ampoules LED à faible consommation d'énergie.</li>
-                <li>Débranchez les appareils non utilisés pour éviter la consommation en veille.</li>
+                <li>Éteignez les lumières et appareils non utilisés.</li>
+                <li>Utilisez des ampoules LED basse consommation.</li>
+                <li>Débranchez les chargeurs et multiprises en veille.</li>
             </ul>
         </div>
 
         <div class="conseil-item">
-            <h4>🌐 Optimiser votre Utilisation de l'Internet :</h4>
+            <h4>🌐 Utilisation Optimale d'Internet :</h4>
             <ul>
-                <li>Évitez de télécharger des fichiers volumineux pendant les heures de pointe.</li>
-                <li>Limitez l'utilisation des vidéos en haute définition.</li>
-                <li>Coupez le Wi-Fi lorsque vous ne l'utilisez pas pour économiser la bande passante.</li>
+                <li>Évitez le streaming Ultra HD inutile pendant la nuit.</li>
+                <li>Éteignez votre box Wi-Fi lorsque vous partez en vacances.</li>
             </ul>
         </div>
     </div>
@@ -270,6 +344,5 @@ $result = mysqli_stmt_get_result($stmt2);
 </html>
 
 <?php
-// Fermer la connexion à la base de données
 mysqli_close($conn);
 ?>

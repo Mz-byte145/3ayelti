@@ -123,188 +123,259 @@ if (isset($_GET['message']) && $_GET['message'] === 'facture_paye') {
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Gestion des Tâches</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Bangers&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion des Tâches - 3ayelti</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        body {
+        :root {
+            --gradient-bg: linear-gradient(135deg, #1f2440 0%, #3b4371 50%, #f3904f 100%);
+            --gold: #ffcc00;
+            --gold-hover: #ffe066;
+            --glass-bg: rgba(255, 255, 255, 0.12);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --glass-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            background: linear-gradient(135deg, #3b4371, #f3904f);
-            font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            margin: 0;
+            padding: 0 0 40px;
+            background: var(--gradient-bg);
+            font-family: 'Poppins', sans-serif;
             color: white;
             text-align: center;
+            min-height: 100vh;
         }
 
-        h2 {
+        /* Top Navbar */
+        .top-navbar {
+            background: rgba(15, 20, 35, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 12px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .budget-badge {
+            background: linear-gradient(135deg, #ffcc00, #ff9900);
+            color: #2c3e50;
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 16px;
+            box-shadow: 0 4px 12px rgba(255, 204, 0, 0.3);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .nav-btn.gold {
+            background: var(--gold);
+            color: #2c3e50;
+            border: none;
+            font-weight: 700;
+        }
+
+        .nav-btn.gold:hover {
+            background: var(--gold-hover);
+        }
+
+        .nav-btn.danger {
+            background: rgba(255, 82, 82, 0.3);
+            border-color: #ff5252;
+            color: #ffcdd2;
+        }
+
+        .nav-btn.danger:hover {
+            background: rgba(255, 82, 82, 0.5);
+        }
+
+        h2.page-title {
             font-family: 'Bangers', cursive;
-            font-size: 36px;
-            color: #ffcc00;
-            margin-top: 20px;
+            font-size: 42px;
+            color: var(--gold);
+            margin: 30px 15px 10px;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.4);
         }
 
-        .user-info .budget-box {
-            background: linear-gradient(135deg, #3b4371, #f3904f);
-            color: #ffcc00;
-            padding: 20px;
-            border-radius: 20px;
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
-            font-size: 22px;
-            width: 220px;
-            text-align: center;
-            position: fixed;
-            top: 15px;
-            left: 13px;
-            z-index: 100;
+        h3.section-subtitle {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.85);
+            font-weight: 300;
+            margin-bottom: 30px;
         }
 
         .enfant-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-            margin: 60px auto;
-            padding: 20px;
-            max-width: 1200px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
 
         .enfant-box {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
-            width: 270px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: var(--glass-shadow);
             position: relative;
+            text-align: left;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .enfant-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
         }
 
         .enfant-box h3 {
             font-family: 'Bangers', cursive;
-            font-size: 36px;
+            font-size: 34px;
             color: #a8e6cf;
-            margin-top: 20px;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+            text-align: center;
         }
 
         .enfant-box h4 {
-            font-size: 24px;
-            font-weight: bold;
-            color: #ffcc00;
-            background: rgba(8, 44, 23, 0.8);
-            padding: 10px;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--gold);
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px 16px;
             border-radius: 12px;
-            margin-bottom: 15px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            transition: transform 0.3s ease, background 0.3s ease;
+            margin-bottom: 20px;
+            text-align: center;
+            border: 1px solid rgba(255, 204, 0, 0.3);
+            transition: all 0.3s ease;
         }
 
         .enfant-box h4.point-anim {
-            transform: scale(1.1);
-            background: rgba(76, 175, 80, 0.8);
+            transform: scale(1.08);
+            background: rgba(76, 175, 80, 0.6);
+            border-color: #4CAF50;
         }
 
         ul {
             list-style: none;
             padding: 0;
+            margin: 0;
         }
 
         li {
-            font-size: 20px;
+            font-size: 15px;
             margin: 10px 0;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            background: rgba(255, 255, 255, 0.08);
+            padding: 10px 14px;
+            border-radius: 10px;
+            gap: 10px;
         }
 
         .task-btn {
-            background: #4CAF50;
+            background: linear-gradient(135deg, #4CAF50, #2E7D32);
             border: none;
             color: white;
-            padding: 6px 10px;
+            padding: 8px 14px;
             border-radius: 8px;
             cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 13px;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);
         }
 
         .task-btn:hover {
-            background: #45a049;
+            transform: scale(1.05);
+            box-shadow: 0 6px 14px rgba(76, 175, 80, 0.5);
         }
 
         .task-btn.completed {
-            background: #aaa;
-            color: white;
+            background: rgba(255, 255, 255, 0.2);
+            color: rgba(255, 255, 255, 0.6);
             text-decoration: line-through;
             cursor: default;
+            box-shadow: none;
         }
 
-        .retour {
-            position: absolute;
-            top: 6px;
-            right: 6px;
-            color: white;
-            background: red;
-            padding: 10px 20px;
-            border-radius: 8px;
-            text-decoration: none;
-            transition: background 0.6s ease, transform 0.4s ease;
-            display: inline-block;
-            font-weight: bold;
-        }
-        .retour:hover {
-            background: #ffe066;
-            transform: scale(1.05);
-        }
-        
-
-        .facture-btn {
-            background: #ffcc00;
-            color: #3b4371;
-            padding: 15px 40px;
-            border-radius: 12px;
-            text-decoration: none;
-            font-weight: bold;
-            display: inline-block;
-            margin-top: 10px;
-            transition: background 0.3s ease, transform 0.2s ease;
-            position: absolute;
-            top: -8px;
-            right: 332px;
-        }
-
-        .facture-btn:hover {
-            background: #ffe066;
-            transform: scale(1.05);
-        }
-
-        .success-message {
-            background: #4CAF50;
-            color: white;
-            padding: 15px;
-            border-radius: 5px;
-            margin: 20px auto;
-            width: 80%;
-            animation: fadeIn 0.5s;
-        }
-
-        /* Styles pour l'ajout de tâches */
         .add-task-btn {
-            background: #ff9800;
+            background: linear-gradient(135deg, #ff9800, #f57c00);
             border: none;
             color: white;
-            padding: 8px 15px;
-            border-radius: 8px;
+            padding: 10px 16px;
+            border-radius: 10px;
             cursor: pointer;
-            margin-bottom: 15px;
-            font-size: 16px;
-            transition: background 0.3s;
+            margin-bottom: 18px;
+            font-size: 14px;
+            font-weight: 600;
+            width: 100%;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(255, 152, 0, 0.3);
         }
 
         .add-task-btn:hover {
-            background: #f57c00;
+            background: linear-gradient(135deg, #ffa726, #fb8c00);
+            transform: translateY(-2px);
         }
 
         .add-task-form {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 15px;
+            background: rgba(0, 0, 0, 0.25);
+            padding: 16px;
+            border-radius: 12px;
+            margin-bottom: 18px;
             display: none;
+            border: 1px solid rgba(255, 255, 255, 0.15);
         }
 
         .task-form {
@@ -314,67 +385,62 @@ if (isset($_GET['message']) && $_GET['message'] === 'facture_paye') {
         }
 
         .task-form input {
-            padding: 8px;
-            border-radius: 5px;
-            border: none;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            outline: none;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
         }
 
         .task-submit-btn {
             background: #4CAF50;
             color: white;
             border: none;
-            padding: 8px;
-            border-radius: 5px;
+            padding: 10px;
+            border-radius: 8px;
             cursor: pointer;
+            font-weight: 600;
         }
 
         .task-cancel-btn {
             background: #f44336;
             color: white;
             border: none;
-            padding: 8px;
-            border-radius: 5px;
+            padding: 10px;
+            border-radius: 8px;
             cursor: pointer;
+            font-weight: 600;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        .recompense-btn {
-            background: #ffcc00;
-            color: #3b4371;
-            padding: 15px 5px;
+        .success-message {
+            background: rgba(76, 175, 80, 0.3);
+            border: 1px solid #4CAF50;
+            color: white;
+            padding: 14px;
             border-radius: 12px;
-            text-decoration: none;
-            font-weight: bold;
-            display: inline-block;
-            margin-top: 10px;
-            transition: background 0.3s ease, transform 0.2s ease;
-            position: absolute;
-            top: -8px;
-            right: 100px;
+            margin: 20px auto;
+            max-width: 600px;
+            font-weight: 600;
         }
-
-        .recompense-btn:hover {
-            background: #ffe066;
-            transform: scale(1.05);
-        }
-        
     </style>
 </head>
 <body>
-    <a href="deconnexion.php" class="retour">Déconnexion 🚪</a>
-
-    <h2>Ton effort, ta récompense !</h2>
-
-    <div class="user-info">
-        <div class="budget-box">
-            <p><strong>Budget :</strong> <?= $salaire ?> TND</p>
+    <header class="top-navbar">
+        <div class="budget-badge">
+            💰 Budget : <?= htmlspecialchars($salaire) ?> TND
         </div>
-    </div>
+        <div class="nav-actions">
+            <a href="facture.php" class="nav-btn gold">🧾 Factures</a>
+            <a href="recompense.php" class="nav-btn gold">🏆 Récompenses</a>
+            <a href="deconnexion.php" class="nav-btn danger">🚪 Déconnexion</a>
+        </div>
+    </header>
 
-    <h3>Liste des tâches familiales</h3>
+    <h2 class="page-title">Ton effort, ta récompense ! 🌟</h2>
+    <h3 class="section-subtitle">Sélectionne les tâches accomplies pour gagner des points !</h3>
 
     <div class="enfant-container">
         <?php foreach ($enfants as $enfant): ?>
@@ -457,12 +523,6 @@ if (isset($_GET['message']) && $_GET['message'] === 'facture_paye') {
     <?php endforeach; ?>
 </div>
     </div>
-
-    <div class="facture-box">
-        <a href="facture.php" class="facture-btn">Voir les factures🧾</a>
-        <a href="recompense.php" class="recompense-btn">consulter les recompenses🏆</a>
-    </div>
-</div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {

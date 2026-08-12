@@ -3,109 +3,181 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulaire de Connexion</title>
+    <title>Connexion - 3ayelti</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        body {
+        :root {
+            --gradient-bg: linear-gradient(135deg, #1f2440 0%, #3b4371 50%, #f3904f 100%);
+            --gold: #ffcc00;
+            --gold-hover: #ffe066;
+            --glass-bg: rgba(255, 255, 255, 0.12);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --glass-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            background: linear-gradient(135deg, #3b4371, #f3904f);
-            height: 100vh;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            background: var(--gradient-bg);
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-family: 'Bangers', cursive;
+            font-family: 'Poppins', sans-serif;
             color: white;
             text-align: center;
         }
 
         .container {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-            width: 300px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: var(--glass-shadow);
+            width: 100%;
+            max-width: 380px;
+            position: relative;
+            animation: fadeInUp 0.7s ease-out;
         }
 
         h2 {
-            font-size: 32px;
-            margin-bottom: 15px;
-            color: #ffcc00;
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+            font-family: 'Bangers', cursive;
+            font-size: 38px;
+            margin-bottom: 20px;
+            color: var(--gold);
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+            text-align: left;
         }
 
         label {
-            font-size: 18px;
-            margin-bottom: 5px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 6px;
             display: block;
+            color: rgba(255, 255, 255, 0.9);
         }
 
         input {
-            padding: 8px;
-            margin: 8px 0;
+            padding: 12px 16px;
             width: 100%;
-            border: none;
-            border-radius: 5px;
-            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.15);
             color: white;
+            font-family: 'Poppins', sans-serif;
+            font-size: 15px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        input:focus {
+            background: rgba(255, 255, 255, 0.25);
+            border-color: var(--gold);
+            box-shadow: 0 0 12px rgba(255, 204, 0, 0.4);
         }
 
         button {
-            padding: 10px 18px;
-            margin-top: 8px;
+            width: 100%;
+            padding: 14px;
+            margin-top: 10px;
             border: none;
-            border-radius: 5px;
-            background: #ffcc00;
-            color: #333;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #ffcc00, #ff9900);
+            color: #2c3e50;
+            font-family: 'Poppins', sans-serif;
+            font-size: 17px;
+            font-weight: 700;
             cursor: pointer;
-            transition: 0.3s;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 16px rgba(255, 204, 0, 0.3);
         }
 
         button:hover {
-            background: #e6b800;
+            background: linear-gradient(135deg, #ffe066, #ffaa00);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 204, 0, 0.5);
+        }
+
+        .links {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
 
         a {
-            color: #ffcc00;
+            color: var(--gold);
             text-decoration: none;
-            margin-top: 10px;
-            display: inline-block;
+            font-size: 14px;
+            transition: color 0.3s;
         }
 
         a:hover {
+            color: var(--gold-hover);
             text-decoration: underline;
         }
+
         .retour {
             position: absolute;
-            top: 15px;
-            left: 15px;
-            font-size: 1.5em;
+            top: 20px;
+            left: 20px;
+            font-size: 18px;
             color: white;
             text-decoration: none;
-            background-color: rgba(255, 255, 255, 0.2);
-            padding: 5px 10px;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-}
+            background: rgba(255, 255, 255, 0.2);
+            padding: 6px 12px;
+            border-radius: 8px;
+            transition: background 0.3s ease;
+        }
 
-.retour:hover {
-    background-color: rgba(255, 255, 255, 0.4);
-}
+        .retour:hover {
+            background: rgba(255, 255, 255, 0.4);
+            text-decoration: none;
+        }
 
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body>
-    <a href="acceuil.html" class="retour">⬅ </a>
+    <a href="acceuil.html" class="retour">⬅ Accueil</a>
     <div class="container">
         <h2>Connexion</h2>
         <form action="login.php" method="post">
-            <label for="email">Adresse Email :</label>
-            <input type="email" id="email" name="email" placeholder="Entrer votre email" required>
+            <div class="form-group">
+                <label for="email">Adresse Email</label>
+                <input type="email" id="email" name="email" placeholder="exemple@email.com" required>
+            </div>
 
-            <label for="password">Mot de Passe :</label>
-            <input type="password" id="password" name="password" placeholder="Entrer votre mot de passe" required>
-            <button type="submit">Se connecter</button>
+            <div class="form-group">
+                <label for="password">Mot de Passe</label>
+                <input type="password" id="password" name="password" placeholder="••••••••" required>
+            </div>
+
+            <button type="submit">Se connecter 🚀</button>
         </form>
-        <a href="inscription.html">Créer un compte 3ayelti </a>
+        <div class="links">
+            <a href="inscription.html">Pas encore de compte ? Créer un compte 3ayelti</a>
+        </div>
     </div>
 </body>
 </html>

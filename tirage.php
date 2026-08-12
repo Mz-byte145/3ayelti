@@ -19,53 +19,94 @@ $enfants = mysqli_fetch_all($result, MYSQLI_ASSOC);
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tirage au Sort - 3ayelti</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        body {
+        :root {
+            --gradient-bg: linear-gradient(135deg, #1f2440 0%, #3b4371 50%, #f3904f 100%);
+            --gold: #ffcc00;
+            --glass-bg: rgba(255, 255, 255, 0.12);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --glass-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            background: linear-gradient(135deg, #3b4371, #f3904f);
+        }
+
+        body {
+            background: var(--gradient-bg);
             min-height: 100vh;
             font-family: 'Poppins', sans-serif;
             color: white;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            padding: 30px 20px;
         }
 
         .container {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            padding: 40px 30px;
+            border-radius: 24px;
+            box-shadow: var(--glass-shadow);
             text-align: center;
-            width: 90%;
-            max-width: 800px;
+            width: 100%;
+            max-width: 700px;
             position: relative;
         }
 
+        .btn-back {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 10px;
+            font-size: 14px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-back:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
         h1 {
-            color: #ffcc00;
+            font-family: 'Bangers', cursive;
+            font-size: 42px;
+            color: var(--gold);
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
+            margin-top: 15px;
             margin-bottom: 20px;
         }
 
         .wheel-container {
             position: relative;
-            width: 300px;
-            height: 300px;
-            margin: 30px auto;
+            width: 280px;
+            height: 280px;
+            margin: 25px auto;
         }
 
         .wheel {
             width: 100%;
             height: 100%;
             border-radius: 50%;
-            border: 10px solid #fff;
+            border: 8px solid white;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 0 20px rgba(255,255,255,0.5);
+            box-shadow: 0 0 25px rgba(255, 204, 0, 0.4);
             transition: transform 4s cubic-bezier(0.33, 1, 0.68, 1);
         }
 
@@ -79,162 +120,121 @@ $enfants = mysqli_fetch_all($result, MYSQLI_ASSOC);
             background: rgba(255, 255, 255, 0.2);
             color: #fff;
             font-weight: bold;
-            text-shadow: 1px 1px #000;
             display: flex;
             justify-content: flex-start;
             align-items: center;
-            padding-left: 20px;
-            font-size: 14px;
+            padding-left: 15px;
+            font-size: 13px;
         }
 
         .pointer {
             width: 0;
             height: 0;
-            border-left: 20px solid transparent;
-            border-right: 20px solid transparent;
-            border-bottom: 30px solid #ffcc00;
+            border-left: 18px solid transparent;
+            border-right: 18px solid transparent;
+            border-bottom: 28px solid var(--gold);
             position: absolute;
-            top: -35px;
-            left: calc(50% - 20px);
+            top: -30px;
+            left: calc(50% - 18px);
             z-index: 10;
+            filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.5));
         }
 
         .btn-spin {
-            background-color: #ffcc00;
-            color: #333;
-            padding: 12px 25px;
+            background: linear-gradient(135deg, #ffcc00, #ff9900);
+            color: #2c3e50;
+            padding: 14px 35px;
             border: none;
-            border-radius: 10px;
-            font-size: 16px;
+            border-radius: 12px;
+            font-size: 18px;
             cursor: pointer;
-            font-weight: bold;
-            margin: 10px;
+            font-weight: 700;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 18px rgba(255, 204, 0, 0.4);
+            font-family: 'Poppins', sans-serif;
         }
 
         .btn-spin:hover {
-            background-color: #e6b800;
+            background: linear-gradient(135deg, #ffe066, #ffaa00);
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 10px 25px rgba(255, 204, 0, 0.6);
         }
 
         .result {
             font-size: 20px;
             margin-top: 25px;
             color: #fff;
+            font-weight: 600;
+            min-height: 40px;
         }
 
-        /* Styles pour la liste des enfants */
         .children-list {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 15px;
-            margin: 20px 0;
+            gap: 12px;
+            margin: 15px 0 20px;
         }
 
         .child-item {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 10px 22px;
             border-radius: 50px;
             display: flex;
             align-items: center;
             cursor: pointer;
             transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            font-weight: 500;
         }
 
         .child-item:hover {
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.3);
             transform: translateY(-2px);
         }
 
         .child-item.active {
-            background: #ffcc00;
-            color: #333;
-            font-weight: bold;
+            background: var(--gold);
+            color: #2c3e50;
+            font-weight: 700;
+            border-color: var(--gold);
+            box-shadow: 0 4px 12px rgba(255, 204, 0, 0.4);
         }
 
         .child-icon {
             margin-right: 8px;
-            font-size: 18px;
         }
 
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 12px 24px;
-            background-color: #2f3640;
-            color: white;
-            border: none;
-            border-radius: 50px;
-            font-size: 16px;
-            font-weight: 500;
-            text-decoration: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-            background-color: #1e272e;
-        }
-
-        .btn i {
-            margin-right: 8px;
-        }
-
-        .btn-back {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background-color: #2f3640;
-            z-index: 10;
-        }
-
-        .btn-back:hover {
-            background-color: #1e272e;
-        }
-
-        /* Style pour le message d'erreur */
         .error-message {
             position: fixed;
             top: 20px;
             left: 50%;
             transform: translateX(-50%);
-            background-color: #ff4757;
+            background: rgba(255, 82, 82, 0.9);
             color: white;
-            padding: 15px 25px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            padding: 12px 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
             z-index: 1000;
-            animation: fadeIn 0.3s ease-out;
             display: none;
             align-items: center;
-        }
-
-        .error-message i {
-            margin-right: 10px;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateX(-50%) translateY(-20px); }
-            to { opacity: 1; transform: translateX(-50%) translateY(0); }
+            font-weight: 600;
         }
     </style>
 </head>
 <body>
     <div class="error-message" id="errorMessage">
-        <i class="fas fa-exclamation-circle"></i>
         <span id="errorText"></span>
     </div>
     
     <div class="container">
-        <a href="recompense.php" class="btn btn-back"><i class="fas fa-arrow-left"></i> Retour aux récompenses</a>
+        <a href="recompense.php" class="btn-back">⬅ Récompenses</a>
         
         <h1>🎡 Tirage au sort</h1>
         
         <?php if (!empty($enfants)): ?>
-            <h3>Choisissez un enfant :</h3>
+            <p style="color: rgba(255,255,255,0.85); font-size:15px;">Choisissez un enfant :</p>
             <div class="children-list">
                 <?php foreach ($enfants as $enfant): ?>
                     <div class="child-item" data-child-id="<?= $enfant['id'] ?>" onclick="selectChild(this)">
@@ -249,11 +249,9 @@ $enfants = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
         <div class="wheel-container">
             <div class="pointer"></div>
-            <div class="wheel" id="wheel">
-                <!-- Sections ajoutées dynamiquement via JS -->
-            </div>
+            <div class="wheel" id="wheel"></div>
         </div>
-        <button class="btn-spin" onclick="spinWheel()"><i class="fas fa-sync-alt"></i> Tourner la roue</button>
+        <button class="btn-spin" onclick="spinWheel()">Tourner la roue 🚀</button>
         <div class="result" id="result"></div>
     </div>
 
@@ -265,7 +263,7 @@ $enfants = mysqli_fetch_all($result, MYSQLI_ASSOC);
         let selectedChildId = null;
 
         const rewards = [
-            '🎮 1h de jeux vidéo',
+            '🎮 1h jeux vidéo',
             '🎁 Petit cadeau',
             '🎥 Cinéma',
             '🍽️ Choisir le dîner',
@@ -275,12 +273,11 @@ $enfants = mysqli_fetch_all($result, MYSQLI_ASSOC);
             '✨ Activité spéciale'
         ];
 
-        // Create wheel segments
         const anglePerSegment = 360 / rewards.length;
         rewards.forEach((reward, index) => {
             const segment = document.createElement('div');
             segment.style.transform = `rotate(${anglePerSegment * index}deg) skewY(-60deg)`;
-            segment.style.backgroundColor = index % 2 === 0 ? 'rgba(255,255,255,0.15)' : 'rgba(255,255,255,0.25)';
+            segment.style.backgroundColor = index % 2 === 0 ? 'rgba(255,255,255,0.15)' : 'rgba(255,255,255,0.28)';
             segment.innerText = reward;
             wheel.appendChild(segment);
         });
@@ -308,7 +305,7 @@ $enfants = mysqli_fetch_all($result, MYSQLI_ASSOC);
             if (isSpinning) return;
             
             if (!selectedChildId) {
-                showError('Veuillez sélectionner un enfant avant de tourner la roue');
+                showError('⚠️ Veuillez sélectionner un enfant avant de tourner la roue');
                 return;
             }
 
@@ -323,7 +320,7 @@ $enfants = mysqli_fetch_all($result, MYSQLI_ASSOC);
             setTimeout(() => {
                 const selectedIndex = Math.floor((360 - finalDeg) / anglePerSegment) % rewards.length;
                 const reward = rewards[selectedIndex];
-                resultDiv.innerHTML = `🎉 <strong>${document.querySelector('.child-item.active').textContent.trim()}</strong> a gagné : <strong>${reward}</strong>`;
+                resultDiv.innerHTML = `🎉 <strong>${document.querySelector('.child-item.active').textContent.trim()}</strong> a gagné : <span style="color:#ffcc00;">${reward}</span> !`;
                 
                 saveReward(selectedChildId, reward);
                 isSpinning = false;

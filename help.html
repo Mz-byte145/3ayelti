@@ -3,257 +3,190 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Aide - Gestion des Tâches Familiales</title>
+  <title>Aide & Support - 3ayelti</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
   <style>
-    body {
+    :root {
+      --gradient-bg: linear-gradient(135deg, #1f2440 0%, #3b4371 50%, #f3904f 100%);
+      --gold: #ffcc00;
+      --glass-bg: rgba(255, 255, 255, 0.12);
+      --glass-border: rgba(255, 255, 255, 0.2);
+      --glass-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+    }
+
+    * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      background: linear-gradient(135deg, #3b4371, #f3904f);
+    }
+
+    body {
+      background: var(--gradient-bg);
       font-family: 'Poppins', sans-serif;
       color: white;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
-      min-height: 100vh;
-      overflow-x: hidden;
+      padding: 40px 20px;
     }
 
-    header {
+    .container {
+      max-width: 850px;
       width: 100%;
-      padding: 20px 0;
-      background: inherit;
-      text-align: center;
-      position: relative;
     }
 
-    header h1 {
-      margin: 0;
-      font-size: 2.2em;
-      text-transform: uppercase;
-      letter-spacing: 1px;
+    .top-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
     }
 
     .retour {
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      font-size: 1.2em;
-      background-color: rgba(255, 255, 255, 0.25);
-      padding: 8px 12px;
-      border-radius: 6px;
-      color: white;
       text-decoration: none;
-      transition: background-color 0.3s ease;
+      background: rgba(255, 255, 255, 0.15);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 12px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.2);
     }
 
     .retour:hover {
-      background-color: rgba(255, 255, 255, 0.4);
+      background: rgba(255, 255, 255, 0.3);
+      transform: translateY(-2px);
     }
 
- 
-    main {
-      width: 90%;
-      max-width: 900px;
-      border-radius: 12px;
-      padding: 30px;
-      margin: 30px 0;
-      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-      animation: fadeIn 1s ease forwards;
-    }
-    /* Partie Introduction */
-    #introduction {
-      background-color: rgba(255, 255, 255, 0.2); /* Fond légèrement transparent */
-      border-radius: 12px;
-      padding: 30px;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1); /* Ombre pour plus de profondeur */
-      margin-bottom: 30px;
-      transition: background-color 0.3s ease-in-out;
-    }
-
-    #introduction:hover {
-      background-color: rgba(255, 255, 255, 0.3); /* Effet au survol */
-    }
-
-    #introduction h2 {
-      color: #3b4371;
-      font-size: 2em;
+    h1 {
+      font-family: 'Bangers', cursive;
+      font-size: 44px;
+      color: var(--gold);
+      letter-spacing: 2px;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
       text-align: center;
+      margin-bottom: 30px;
+    }
+
+    section {
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      padding: 30px;
       margin-bottom: 25px;
-      border-bottom: 2px solid #3b4371;
-      padding-bottom: 8px;
-      font-weight: bold;
+      box-shadow: var(--glass-shadow);
     }
 
-    #introduction p {
-      font-size: 1.1em;
-      color: #f0f0f0;
-      line-height: 1.8;
+    h2 {
+      font-family: 'Bangers', cursive;
+      font-size: 28px;
+      color: #a8e6cf;
       margin-bottom: 15px;
-      text-align: justify;
+      letter-spacing: 1px;
     }
 
-    #introduction strong {
-      color: #ffe37a;
-      font-style: italic;
-    }
-
-    /* Partie Support */
-    #support {
-      background-color: rgba(255, 255, 255, 0.2); /* Fond légèrement transparent */
-      border-radius: 12px;
-      padding: 30px;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1); /* Ombre pour plus de profondeur */
-      margin-bottom: 30px;
-      transition: background-color 0.3s ease-in-out;
-    }
-
-    #support:hover {
-      background-color: rgba(255, 255, 255, 0.3); /* Effet au survol */
-    }
-
-    #support h2 {
-      color: #3b4371;
-      font-size: 2em;
-      text-align: center;
-      margin-bottom: 20px;
-      border-bottom: 2px solid#3b4371;
-      padding-bottom: 8px;
-      font-weight: bold;
-    }
-
-    #support h3 {
-      color: #fff;
-      font-size: 1.5em;
-      margin-bottom: 15px;
-    }
-
-    #support p {
-      font-size: 1.1em;
-      color: #f0f0f0;
-      line-height: 1.8;
-      margin-bottom: 15px;
-      text-align: justify;
-    }
-
-    #support a {
-      color:#ffe37a;
-      font-weight: bold;
-      transition: color 0.3s ease;
-    }
-
-    #support a:hover {
-      color: #fbd28b;
-      text-decoration: underline;
-    }
-
-    #support .contact-box {
-      background-color: rgba(255, 255, 255, 0.2);
-      border-radius: 8px;
-      padding: 20px;
-      margin-top: 20px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    
-
-    #commentaires {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      width: 230px;
-      background-color: rgba(255, 255, 255, 0.85);
-      padding: 15px;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-      z-index: 999;
-    }
-
-    #commentaires h2 {
-      font-size: 1.2em;
-      color: #3b4371;
+    p {
+      font-size: 15px;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, 0.9);
       margin-bottom: 12px;
+    }
+
+    a {
+      color: var(--gold);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+
+    a:hover {
+      color: #ffe066;
+      text-decoration: underline;
     }
 
     .input-field {
       width: 100%;
-      padding: 8px;
-      margin-bottom: 10px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      font-size: 1em;
-      resize: none;
+      padding: 12px 16px;
+      margin-bottom: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.15);
+      color: white;
+      font-family: 'Poppins', sans-serif;
+      font-size: 15px;
+      outline: none;
+      resize: vertical;
+    }
+
+    .input-field:focus {
+      background: rgba(255, 255, 255, 0.25);
+      border-color: var(--gold);
     }
 
     .submit-btn {
       width: 100%;
-      padding: 10px;
-      background-color: #3b4371;
-      color: white;
+      padding: 14px;
+      background: linear-gradient(135deg, #ffcc00, #ff9900);
+      color: #2c3e50;
       border: none;
-      border-radius: 6px;
-      font-size: 1em;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 700;
       cursor: pointer;
-      transition: background-color 0.3s;
+      font-family: 'Poppins', sans-serif;
+      transition: all 0.3s ease;
+      box-shadow: 0 6px 16px rgba(255, 204, 0, 0.3);
     }
 
     .submit-btn:hover {
-      background-color: #f3904f;
+      background: linear-gradient(135deg, #ffe066, #ffaa00);
+      transform: translateY(-2px);
     }
 
     footer {
-      width: 100%;
-      padding: 15px;
-      background: inherit;
       text-align: center;
-      color: white;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(10px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      margin-top: 20px;
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.7);
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Aide 🛠</h1>
-    <a href="acceuil.html" class="retour">⬅</a>
-  </header>
+  <div class="container">
+    <div class="top-nav">
+      <a href="acceuil.html" class="retour">⬅ Accueil</a>
+    </div>
 
-  <main>
+    <h1>🛠 Centre d'Aide & Support</h1>
+
     <section id="introduction">
-      <h2>1. Introduction</h2>
-      <p><strong>Objectif de la page d'aide :</strong> Cette page explique comment utiliser la plateforme et répond aux questions les plus posées.</p>
-      <p><strong>Qui peut utiliser cette plateforme :</strong> L'objectif de ce projet est de faciliter l'organisation familiale, en permettant à chaque membre de participer activement selon ses capacités.</p>
+      <h2>1. Présentation de la Plateforme</h2>
+      <p><strong>Objectif :</strong> 3ayelti est conçue pour simplifier l'organisation familiale. Elle motive les enfants à accomplir leurs tâches grâce à un système de points et de récompenses motivant !</p>
+      <p><strong>Qui peut participer :</strong> Toute la famille ! Les parents fixent le budget et les récompenses, et les enfants complètent leurs défis quotidiens.</p>
     </section>
 
     <section id="support">
-      <h2>2. Support</h2>
-      <h3>Contact Support</h3>
-      <p>Si vous rencontrez des problèmes techniques ou si vous avez des questions supplémentaires, n'hésitez pas à nous contacter  ou à laisser un commentaire:</p>
-      <p>Email : <a href="mailto:aminemzoughi211@gmail.com">aminemzoughi211@gmail.com</a></p>
-      <p><a href="https://www.facebook.com/profile.php?id=100042205510657&locale=fr_FR" target="_blank">Contactez le fondateur</a></p>
-      <p>Facebook créateur : <a href="https://www.facebook.com/profile.php?id=100042205510657&locale=fr_FR" target="_blank">Mzoughi Amine</a></p>
+      <h2>2. Support & Contact</h2>
+      <p>Besoin d'aide supplémentaire ou d'une question technique ?</p>
+      <p>📧 Email : <a href="mailto:aminemzoughi211@gmail.com">aminemzoughi211@gmail.com</a></p>
+      <p>🌐 Facebook Créateur : <a href="https://www.facebook.com/profile.php?id=100042205510657&locale=fr_FR" target="_blank">Mzoughi Amine</a></p>
     </section>
-  </main>
 
-  <section id="commentaires">
-    <h2>Laissez un commentaire</h2>
-    <form action="commentaire.php" method="POST">
-      <input type="text" name="nom" class="input-field" placeholder="Votre nom" required>
-      <textarea name="commentaire" rows="3" class="input-field" placeholder="Votre commentaire ici..." required></textarea>
-      <button type="submit" class="submit-btn">Envoyer</button>
-    </form>
-  </section>
+    <section id="commentaires">
+      <h2>💬 Laisser un Commentaire</h2>
+      <form action="commentaire.php" method="POST">
+        <input type="text" name="nom" class="input-field" placeholder="Votre nom / prénom" required>
+        <textarea name="commentaire" rows="4" class="input-field" placeholder="Écrivez votre commentaire ici..." required></textarea>
+        <button type="submit" class="submit-btn">Envoyer le commentaire 🚀</button>
+      </form>
+    </section>
 
-  <footer>
-    <p>&copy; 3ayelti plateforme</p>
-  </footer>
+    <footer>
+      &copy; 3ayelti plateforme — Tous droits réservés
+    </footer>
+  </div>
 </body>
 </html>

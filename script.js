@@ -1,19 +1,12 @@
 function alpha(ch) {
-    var i = 0;
-    var test = true;
-    while (i < ch.length && test) {
-        var x = ch.charAt(i);
-        if ((x >= "A" && x <= "Z") || (x >= "a" && x <= "z")) {
-            i++;
-        } else {
-            test = false;
-        }
-    }
-    return test;
+    return /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūýÿʐżźŚśĆćŹźŻż\s'-]+$/.test(ch);
 }
 
 function showError(id, message) {
-    document.getElementById(id).innerText = message;
+    var elem = document.getElementById(id);
+    if (elem) {
+        elem.innerText = message;
+    }
 }
 
 function clearErrors() {
@@ -26,29 +19,32 @@ function clearErrors() {
 function valid() {
     clearErrors();
 
-    var nom = document.getElementById("nom").value.trim();
-    var email = document.getElementById("email").value.trim();
-    var password = document.getElementById("password").value.trim();
-    var confirmPassword = document.getElementById("confirmpss").value.trim();
+    var nomElem = document.getElementById("nom");
+    var emailElem = document.getElementById("email");
+    var passwordElem = document.getElementById("password");
+    var confirmPasswordElem = document.getElementById("confirmpss");
+
+    if (!nomElem || !emailElem || !passwordElem || !confirmPasswordElem) {
+        return true;
+    }
+
+    var nom = nomElem.value.trim();
+    var email = emailElem.value.trim();
+    var password = passwordElem.value;
+    var confirmPassword = confirmPasswordElem.value;
 
     if (!nom || !email || !password || !confirmPassword) {
         showError("nomError", "Tous les champs doivent être remplis.");
         return false;
     }
 
-    if (!alpha(nom) || nom.length < 3) {
-        showError("nomError", "Le nom doit être alphabétique et contenir au moins 3 caractères.");
+    if (nom.length < 3) {
+        showError("nomError", "Le nom doit contenir au moins 3 caractères.");
         return false;
     }
 
-    if (email.indexOf("@") === -1) {
-        showError("emailError", "L'email doit contenir un '@'.");
-        return false;
-    }
-
-    var emailDomain = email.split("@")[1];
-    if (emailDomain && (emailDomain.indexOf(".com") === -1 && emailDomain.indexOf(".yahoo") === -1 && emailDomain.indexOf(".org") === -1)) {
-        showError("emailError", "L'email doit contenir un domaine valide tel que '@gmail.com', '@yahoo.com', ou '@org'.");
+    if (email.indexOf("@") === -1 || email.indexOf(".") === -1) {
+        showError("emailError", "Veuillez entrer une adresse email valide.");
         return false;
     }
 
@@ -59,11 +55,6 @@ function valid() {
 
     if (password !== confirmPassword) {
         showError("confirmError", "Les mots de passe ne correspondent pas.");
-        return false;
-    }
-
-    if (password.includes(" ") || confirmPassword.includes(" ")) {
-        showError("passwordError", "Le mot de passe ne doit pas contenir d'espaces.");
         return false;
     }
 

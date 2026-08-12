@@ -1,89 +1,151 @@
-.container {
-    position: relative;
+@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Poppins:wght@300;400;600;700&display=swap');
+
+:root {
+    --gradient-bg: linear-gradient(135deg, #1f2440 0%, #3b4371 50%, #f3904f 100%);
+    --gold: #ffcc00;
+    --gold-hover: #ffe066;
+    --glass-bg: rgba(255, 255, 255, 0.12);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --glass-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
 }
 
-.title {
-    position: fixed;
-    top: -5px;
-    right: 120px;
-    font-size: 40px;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    text-shadow: 6px 6px 15px rgba(0, 0, 0, 0.7), 0 0 10px rgba(255, 255, 255, 0.5);
-    background: linear-gradient(45deg, #ffcc00, #ff6699);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-weight: bold;
-
-}
-/* Style pour le bouton Aide */
-.help-button {
-    background: rgba(232, 231, 231, 0.2);
-    border-radius: 10px;
-    padding: 15px 30px;
-    font-size: 1.2em;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: -300px;
-    transition: background-color 0.3s ease;
-    position: fixed;
-    right: 1400px;
-}
-
-.help-button:hover {
-    background-color: #f3904f;
-}
-
-
-.play-button {
-    position: fixed;
-    top: 100px;
-    right: 150px;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 10px;
-    padding: 30px 40px;
-    cursor: pointer;
-}
-
-.play-button::before {
-    content: '▶';
-    font-size: 50px;
-    color: white;
-}
-
-.detective {
-    position: absolute;
-    left: -40px;
-    top: -10px;
-    width: 40px;
-    height: 40px;
-    background: url('detective-icon.png') no-repeat center/contain;
-}
-.play-button a {
-    text-decoration: none;
-    color: white;
-    font-size: 50px;
-}
-
-.gifts {
-    position: absolute;
-    bottom: -30px;
-    right: -50px;
-    width: 80px;
-    height: 80px;
-    background: url('famille2.jpg') no-repeat center/contain;
-}
-body {
+* {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    background: url('famille.jpg') no-repeat center/cover;
-    height: 100vh;
+}
+
+body {
+    background: var(--gradient-bg);
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
+    font-family: 'Poppins', sans-serif;
     color: white;
-    font-family: 'Bangers', cursive;
     text-align: center;
+    overflow-x: hidden;
+    padding: 20px;
+}
+
+.hero-container {
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    padding: 50px 40px;
+    border-radius: 24px;
+    box-shadow: var(--glass-shadow);
+    max-width: 480px;
+    width: 100%;
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.brand-title {
+    font-family: 'Bangers', cursive;
+    font-size: 64px;
+    letter-spacing: 4px;
+    background: linear-gradient(45deg, #ffcc00, #ff6699, #ffcc00);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shine 4s linear infinite;
+    margin-bottom: 10px;
+    text-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.brand-tagline {
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: 35px;
+    font-weight: 300;
+}
+
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 16px 28px;
+    background: linear-gradient(135deg, #ffcc00, #ff9900);
+    color: #2c3e50;
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    border: none;
+    border-radius: 14px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 8px 20px rgba(255, 204, 0, 0.3);
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 12px 25px rgba(255, 204, 0, 0.5);
+    background: linear-gradient(135deg, #ffe066, #ffaa00);
+}
+
+.btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 14px 28px;
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 14px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.btn-help {
+    margin-top: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 14px;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.btn-help:hover {
+    color: #ffcc00;
+    text-decoration: underline;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes shine {
+    to {
+        background-position: 200% center;
+    }
 }

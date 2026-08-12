@@ -11,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         if ($stmt) {
             mysqli_stmt_bind_param($stmt, "ss", $nom, $commentaire);
             if (mysqli_stmt_execute($stmt)) {
-                $message = "Votre commentaire a été ajouté avec succès !";
+                $message = "Votre commentaire a été ajouté avec succès ! 🙏";
             } else {
                 $message = "Erreur lors de l'ajout du commentaire. Veuillez réessayer.";
             }
@@ -23,10 +23,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $message = "Veuillez remplir tous les champs.";
     }
 }
-
-// Récupération des commentaires (optionnel)
-$sql = "SELECT * FROM commentaires ORDER BY id DESC";
-$result = mysqli_query($conn, $sql);
 ?>
 
 <!DOCTYPE html>
@@ -34,139 +30,153 @@ $result = mysqli_query($conn, $sql);
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Aide - 3ayelti</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <title>Aide & Commentaires - 3ayelti</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
   <style>
-    body {
+    :root {
+      --gradient-bg: linear-gradient(135deg, #1f2440 0%, #3b4371 50%, #f3904f 100%);
+      --gold: #ffcc00;
+      --glass-bg: rgba(255, 255, 255, 0.12);
+      --glass-border: rgba(255, 255, 255, 0.2);
+      --glass-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+    }
+
+    * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      background: linear-gradient(135deg, #3b4371, #f3904f);
+    }
+
+    body {
+      background: var(--gradient-bg);
       font-family: 'Poppins', sans-serif;
-      color: #ffffff;
+      color: white;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-    }
-
-    header {
-      background: transparent;
-      padding: 20px 40px;
-      text-align: center;
-      font-size: 2.2em;
-      font-weight: 600;
-      letter-spacing: 1px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-    }
-
-    main {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
       align-items: center;
-      justify-content: center;
       padding: 40px 20px;
     }
 
-    section {
-      background-color: rgba(255, 255, 255, 0.15);
-      border-radius: 16px;
-      padding: 30px;
-      max-width: 700px;
+    .container {
+      max-width: 650px;
       width: 100%;
-      margin-bottom: 30px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-      backdrop-filter: blur(10px);
+      text-align: center;
+    }
+
+    .top-nav {
+      display: flex;
+      justify-content: flex-start;
+      margin-bottom: 25px;
+    }
+
+    .retour {
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.15);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 12px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .retour:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: translateY(-2px);
+    }
+
+    h1 {
+      font-family: 'Bangers', cursive;
+      font-size: 44px;
+      color: var(--gold);
+      letter-spacing: 2px;
+      margin-bottom: 25px;
+    }
+
+    .card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      padding: 35px 25px;
+      box-shadow: var(--glass-shadow);
+      margin-bottom: 25px;
     }
 
     h2 {
-      font-size: 1.8em;
-      margin-bottom: 20px;
-      color: #ffcc00;
-      border-bottom: 2px solid #ffcc00;
-      display: inline-block;
-      padding-bottom: 5px;
+      font-family: 'Bangers', cursive;
+      font-size: 28px;
+      color: #a8e6cf;
+      margin-bottom: 15px;
     }
 
     p {
-      font-size: 1.1em;
-      line-height: 1.7;
-      color: #fefefe;
+      font-size: 16px;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.9);
     }
 
     .message-success {
-      background-color: rgba(255, 255, 255, 0.25);
-      color: #eaffea;
-      border-left: 5px solid #4CAF50;
+      background: rgba(76, 175, 80, 0.25);
+      border: 1px solid #4CAF50;
+      color: #c8e6c9;
       padding: 15px;
-      margin: 20px auto;
-      max-width: 600px;
-      text-align: center;
+      margin: 20px 0;
       font-weight: 600;
-      border-radius: 8px;
-      animation: fadeIn 0.8s ease forwards;
+      border-radius: 12px;
+    }
+
+    .btn-home {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 12px 28px;
+      background: linear-gradient(135deg, #ffcc00, #ff9900);
+      color: #2c3e50;
+      text-decoration: none;
+      border-radius: 10px;
+      font-weight: 700;
+      transition: all 0.3s ease;
+    }
+
+    .btn-home:hover {
+      background: linear-gradient(135deg, #ffe066, #ffaa00);
+      transform: translateY(-2px);
     }
 
     footer {
       text-align: center;
-      padding: 20px;
-      font-size: 1em;
-      background: transparent;
-      color: #fff;
+      margin-top: 20px;
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.7);
     }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-    .retour {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            font-size: 1.5em;
-            color: white;
-            text-decoration: none;
-            background-color: rgba(255, 255, 255, 0.2);
-            padding: 5px 10px;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-}
-
-.retour:hover {
-    background-color: rgba(255, 255, 255, 0.4);
-}
-
   </style>
 </head>
 <body>
+  <div class="container">
+    <div class="top-nav">
+      <a href="acceuil.html" class="retour">⬅ Accueil</a>
+    </div>
 
-  <header>
-    Aide 🛠
-  </header>
-  <a href="acceuil.html" class="retour">⬅ </a>
-  <main>
-    <section id="introduction">
-      <h2>Bienvenue à 3ayelti</h2>
-      <p>Merci pour votre commentaire 🙏<br>Nous essaierons de vous répondre le plus rapidement possible.</p>
-    </section>
+    <h1>🛠 3ayelti Support</h1>
 
-    <?php if (isset($message)): ?>
-      <div class="message-success">
-        <?php echo htmlspecialchars($message); ?>
-      </div>
-    <?php endif; ?>
-  </main>
+    <div class="card">
+      <h2>Merci pour votre message !</h2>
+      <p>Nous vous remercions d'avoir pris le temps de nous écrire.<br>Notre équipe vous répondra dans les plus brefs délais.</p>
 
-  <footer>
-    &copy; 3ayelti plateforme
-  </footer>
+      <?php if (isset($message)): ?>
+        <div class="message-success">
+          <?= htmlspecialchars($message); ?>
+        </div>
+      <?php endif; ?>
 
+      <a href="acceuil.html" class="btn-home">Retourner à l'Accueil 🏠</a>
+    </div>
+
+    <footer>
+      &copy; 3ayelti plateforme — Tous droits réservés
+    </footer>
+  </div>
 </body>
 </html>
-
-
