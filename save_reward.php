@@ -1,5 +1,4 @@
 <?php
-session_start();
 include 'connexion.php';
 
 if (!isset($_SESSION['user_id'])) {
@@ -8,7 +7,11 @@ if (!isset($_SESSION['user_id'])) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $enfant_id = intval($_POST['enfant_id']);
-    $recompense = $_POST['recompense'];
+    $recompense = $_POST['recompense'] ?? '';
+    
+    if (empty($recompense)) {
+        die("Récompense non spécifiée");
+    }
     
     // Vérifier que l'enfant appartient bien à l'utilisateur
     $sql = "SELECT id FROM enfants WHERE id = ? AND user_id = ?";

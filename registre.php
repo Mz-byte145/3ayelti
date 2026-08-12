@@ -1,5 +1,4 @@
 <?php
-session_start();
 require_once "connexion.php";
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -28,11 +27,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
     $check->close();
 
-    // ❌ PAS DE HASH
+    // ✅ Hash du mot de passe avant stockage
+    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
     $stmt = $conn->prepare(
         "INSERT INTO user (nom, email, mot_de_passe) VALUES (?, ?, ?)"
     );
-    $stmt->bind_param("sss", $nom, $email, $password);
+    $stmt->bind_param("sss", $nom, $email, $hashed_password);
 
     if ($stmt->execute()) {
         $_SESSION["user_id"] = $conn->insert_id;

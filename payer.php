@@ -1,14 +1,17 @@
 <?php
-session_start();
 include 'connexion.php';
 
 if (!isset($_SESSION['user_id'])) {
     die("Vous devez être connecté pour effectuer ce paiement.");
 }
 
+if (!isset($_POST['factureId']) || !isset($_POST['montant'])) {
+    die("Données de paiement manquantes.");
+}
+
 $user_id = $_SESSION['user_id'];
-$facture_id = $_POST['factureId'];
-$montant = $_POST['montant'];
+$facture_id = intval($_POST['factureId']);
+$montant = floatval($_POST['montant']);
 
 // Récupérer le salaire de l'utilisateur
 $sql = "SELECT salaire FROM budget_familial WHERE user_id = ? ORDER BY id DESC LIMIT 1";

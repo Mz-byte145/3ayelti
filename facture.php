@@ -1,5 +1,4 @@
 <?php
-session_start();
 // Connexion à la base de données
 include 'connexion.php';
 
@@ -71,10 +70,13 @@ while ($row = mysqli_fetch_assoc($result)) {
 mysqli_free_result($result);
 
 // Récupérer à nouveau les factures non payées pour affichage
-$result = mysqli_query($conn, "SELECT f.id, f.nom_facture, f.montant
+$stmt2 = mysqli_prepare($conn, "SELECT f.id, f.nom_facture, f.montant
                                FROM facture f
                                JOIN budget_familial b ON f.budget_id = b.id
-                               WHERE b.user_id = '$user_id' AND f.paye = 0");
+                               WHERE b.user_id = ? AND f.paye = 0");
+mysqli_stmt_bind_param($stmt2, "i", $user_id);
+mysqli_stmt_execute($stmt2);
+$result = mysqli_stmt_get_result($stmt2);
 
 ?>
 
