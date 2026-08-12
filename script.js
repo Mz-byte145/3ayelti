@@ -67,6 +67,5 @@ function valid() {
         return false;
     }
 
-    alert("Inscription réussie !");
     return true;
 }
